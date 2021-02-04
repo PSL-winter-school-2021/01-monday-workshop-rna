@@ -1,0 +1,281 @@
+# Introdution {.unnumbered}
+
+**Objectives** : In this pratical session, you will learn : 
+
+* how to clean single cells data and extract high quality cells 
+* identify sub-populations of cells 
+
+We will be using the R packages Seurat and apply it functionalities to subset of the data publilshied with Karaiskos et al \@ref(bibli).
+
+
+## Sources of inspiration{.unnumbered}
+
+This course material is largely inspired by two great sources that we advised you to read in details:
+
+* [sincellTE 2020](https://cloud.biologie.ens.fr/index.php/s/RXkNGwtR1MLf5mo) : MA Dillies, A. Rausell, M Deloger, N. Servant, M. Thomas-Chollier, A. Paquet, cours6_TP_EDA_Normalization_2020.html
+* [Vignette Seurat](https://satijalab.org/seurat/archive/v3.2/pbmc3k_tutorial.html)
+
+## Bibliography{.unnumbered}
+
+[Karaiskos et al.]{#bibli}The Drosophila embryo at single-cell transcriptome resolution. Science13 Oct 2017 : 194-199 
+
+
+# Working with Seurat
+
+## Load the library
+
+```{r }
+library(Seurat)
+```
+##  Import the data
+scRNAseqdata are presented in a matrix, where each row represents a gene and each column represents a single cell with a raw count (UMI).
+
+In this pratical session, we will work with the data from "replicate3" published along with the article by Karaiskos. 
+
+We will first load the text file then create a "Seurat object", the data structure suitable to work with Seurat. 
+```{r nice-fig, fig.cap='Here is a nice figure!', out.width='80%', fig.asp=.75, fig.align='center'}
+raw_counts<-read.csv2(file="data/data_day1/GSM2494785_dge_mel_rep3.txt",
+                       sep="\t")
+raw_counts[1:3,1:5]
+print(dim(raw_counts))
+```
+
+Here we have the expression of 17 026 genes in 1586 cells. 
+
+We will modify the table to have the field "GENE" as the rownames: 
+```{r,warning=FALSE}
+rownames(raw_counts) = raw_counts$GENE
+raw_counts$GENE = NULL
+```
+
+To work with Seurat, you need to create a Seurat Object.  
+```{r,warning=FALSE}
+mydata <- CreateSeuratObject(raw_counts, min.cells = 1, min.features = 200, project = "mydata_scRNAseq")
+mydata
+```
+While creating the object we can perform a first filtering : here we excluded cells that contains less than 200 genes (undersequenced cells or debris) and genes that are expressed in only 1 cell.
+
+
+**Alternative:** 
+If you have a directory produce by CellRanger, you can use the function _"read10X*_ directly. This function takes as argument the name of the folder containing the output of CellRanger (matrix.mtx, genes.tsv, barcodes.tsv).
+
+## Explore the Seurat data structure
+A Seurat object is not the easiest structure to work with, but with a but of practice you will appreciate its potentiality ! 
+
+In Seurat, data are organised in different compartements (slots) which contains them-selves several compartements, which can them-selves contain sub compartments....Each compartment can used to store: 
+* data from multiple modalities, such as RNAseq, spatial transcriptomics, ATAC-seq… For our session today, we will focus on RNAseq only (slot "assays", sub-slot "RNA")
+* general results regarding your data, such as the total number of UMI exexpressed (slot meta.data)   
+* resultst of analyses (PCA loading or clustering results)
+```{r}
+slotNames(mydata)
+```
+You navigate through this hierachie using '@' and '$' signs. 
+```{r}
+slotNames(mydata@assays$RNA)
+```
+In the slots associated RNA, you will store:  
+
+* _counts_ : raw UMI (the data we imported)
+* _data_ : filtered/normalized counting matrix 
+* _scale.data_ : normalize and scaled data (usually for PCA analyses)
+* _var.features_: contains a list of genes genes that contribute strongly to cell-to-cell variation (see section on highly variable genes) 
+
+We will see through this session how to fill in these fields.
+
+You can access the data by using the '@' and '$' sign, or by using the function GetAssayData function. 
+```{r}
+GetAssayData(mydata, slot="counts")[1:3,1:5]
+# Alternative code : 
+# mydata@assays$RNA@counts[1:3,1:5]
+```
+In Seurat, data are stored as "dgCMatrix", which is an efficient way o store an array with a lot of zero in a computer (sparse matrix). 
+
+# Basic single cell pipeline
+
+The steps below encompass the standard pre-processing workflow for scRNA-seq data. 
+
+* Filter out low quality cells : undersequenced cells, debris (broken cells or floating pieces of RNA) and multiplets (several cells in one droplets)
+* Normalize the expression to reduce the sequencing biais.
+
+
+## Remove "low quality cells" 
+
+The are a few metrics commonly used to filter out low quality cells : 
+
+* the number of unique genes detected in each cell : 
+  + cells with low gene count :  helps to remove empty droplets, debris and undersequenced cells.
+  + cells with high gene count : these cells are more likely to be cell doublets or multiplets. The number of multiplets expected in your sample is directly correlated with the number of cells you loaded in 10X. The more cells you loaded, the higher the chance is to have 2 or more cells in one droplet. 
+* total number of UMI detected within a cell 
+* the percentage of reads that map to the mitochondrial genome : low-quality / dying cells often exhibit extensive mitochondrial contamination
+        
+Seurat allows you to easily explore QC (quality control) metrics and filter cells based on any user-defined criteria using the slot 'meta.data'.
+
+### Number of genes detected per cell
+```{r}
+barplot(sort(mydata$nFeature_RNA), main="Number of genes detected/Cell", names.arg = "")
+quantile(mydata$nFeature_RNA)
+```
+### Number of UMIs per cell
+```{r}
+barplot(sort(mydata$nCount_RNA), main="Number of UMI/Cell",names.arg = "")
+
+VlnPlot(mydata, features = c("nFeature_RNA", "nCount_RNA"), ncol = 2)
+
+FeatureScatter(mydata, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+```
+
+
+You aim while looking at these graphs is to define thresholds/cutoff that you will aply to filter cell out. Try to identify the cells that behave differently from the main population.
+
+### Percentage of mitochondrial genes 
+To calculate the perentage of mitochonrial genes expressed in a cell, you must first provide a list of mitochondrial genes. In the paper, the authors did not provide their list. As a quick replacement, we will consider that mitochondrial genes are all the genes that starts with the pattern 'mt:'. For a more refine analysis, you can use flybase or another source and carefully identify mitochondrial genes.
+
+We then use the PercentageFeatureSet function, which calculates the percentage of counts originating from a set of features. 
+```{r}
+
+mydata[["percent.mt"]] <- PercentageFeatureSet(mydata, pattern = "^mt:")
+
+# Alternative : if you have a list of mitochondrial genes
+#list = c("mTerf3","Mtpalpha" ,"mTTF")
+#mydata[["percent.mt2"]] <- PercentageFeatureSet(mydata, features=list_mito )
+
+```
+
+
+```{r}
+VlnPlot(mydata, features = "percent.mt")
+FeatureScatter(mydata, feature1 = "nCount_RNA", feature2 = "percent.mt")
+FeatureScatter(mydata, feature1 = "nFeature_RNA", feature2 = "percent.mt")
+
+```
+
+### Group exercice on filtering
+On of the most difficult parts of single cells pre-processing is to decide the threshold to define low and high quality cells.
+From the various graphs, decide the levels for low high quality cells dependant on the number of genes expressed per cell, the total UMIs per cell and the percentage of mitochonrial genes.
+
+Discuss as a group.
+
+
+```{r}
+# DEFINE THE CUTOFF VALUES AND VISUALIZE THE RESULTS
+minGene    = 500
+maxGene    = 5800
+minUMI     = 12500
+maxUMI     = 60000
+maxpct_mt  = 18  
+
+# the function "subset" helps you to filter the cells
+# we create a new seurat object containing the filtred cells
+mydata_filtrd <- subset(mydata, subset = nFeature_RNA > minGene & nFeature_RNA < maxGene & nCount_RNA > minUMI  & nCount_RNA < maxUMI & percent.mt < maxpct_mt)
+
+VlnPlot(mydata_filtrd, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
+
+FeatureScatter(mydata_filtrd, feature1 = "nCount_RNA", feature2 = "percent.mt")
+FeatureScatter(mydata_filtrd, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+
+```
+
+## Normalize the expression in cells 
+After removing unwanted cells from the dataset, the next step is to normalize the data. 
+The objective is to correct for the sequencing bias. 
+
+As we noticed in the previous graphes, the cells do not have the same number of total UMI. This may be due biological differences (some cells express less RNA than other) but is likely to be the result of cell-specific sequencint biais (some cells have been less sequenced than other).   
+
+We are going to apply a global scaling method, which supposes that all cells are about the same RNA content.  It aims to remove cell-specific systematic biases by scaling expression measures within each cell by a constant factor. 
+We use a “LogNormalize” method that normalizes the feature expression measurements for each cell by the total expression, multiplies this by a scale factor (here the median total UMI per cell), and log-transforms the result.
+```{r}
+mydata_filtrd <- NormalizeData(mydata_filtrd, normalization.method = "LogNormalize", scale.factor = median(mydata_filtrd$nCount_RNA))
+```
+The resulting data are stored in the 'data' slot
+
+Once you have pre-processed your data, you are ready for further analyses : identify sub-population of cells, pseudo-time analyses...
+
+# Identify cell populations
+
+In this section, we will analyse further the data and try to identify sub-populations of cells. The objective is to create clusters of cells, i.e to make group of cells that share similar expression profile. The mains steps are as follow :
+
+ * Select a subset of genes to perfom the downstream analyses
+ * Perform a dimension reduction 
+ * Cluster the cells 
+ 
+## Select highly variables (hvg) 
+The downstream analyses (dimension reduction and then clustering) will se performed on the subset of genes. The aims is to exclude genes with minor biological relevance and decrease the computational load.
+
+```{r,warning=FALSE}
+# Find Variable Genes : 
+mydata_filtrd <- FindVariableFeatures(mydata_filtrd, selection.method = "vst", nfeatures = 2000,verbose = FALSE)
+
+# Identify the 10 most highly variable genes
+top10 <- head(VariableFeatures(mydata_filtrd), 10)
+# you can also access the complete list using : 
+list_hvg = mydata_filtrd@assays$RNA@var.features
+
+```
+
+## Dimension Reduction
+
+### Scaling
+Expression of each gene is scaled (centered around its mean with a unit standard deviation). This step gives equal weight to all genes while performing the in the dimension reduction, and insure that the most expressed genes do not dominate.
+
+```{r}
+mydata_filtrd <- ScaleData(mydata_filtrd)
+```
+The scaled data are stored in the 'scaled' slot.
+
+By default, scaling is only performed on the variable genes. 
+### PCA
+Even though, the gene selection step reduces the data considerably, there is a further need to reduce dimension to keep the most important variability in the data.There are several methods for dimension reduction, the most commonly used is PCA, but you can also check more single-cell specific methods that tries to cope with over-dispersion of the data such as ZIFA and pCMF.
+```{r}
+mydata_filtrd <- RunPCA(mydata_filtrd, features = VariableFeatures(object = mydata_filtrd))
+```
+
+It is worth analysing the genes that contribute the most to each axes. It may help you to identify genes whose expression decrease/increase together.  The DimHeatmap function in Seurat helps you to  visualise the genes that are driving the components and allows to get some insight about the heterogeneity of the data.
+```{r}
+# Examine and visualize PCA results :
+print(mydata_filtrd[["pca"]], dims = 1:5, nfeatures = 5)
+VizDimLoadings(mydata_filtrd, dims = 1:2, reduction = "pca")
+# Plot expression of gene driving principal component 
+DimHeatmap(mydata_filtrd, dims = 1:2)
+```
+
+After PCA, you need to decide how many components you want to keep (for UMAP and/or clustering). Seurat proposes a statistical methods with the function JackStraw. Alternatively you can plot the explained variance using the ElbowPlot. In practical case, around 30-50 principal components.
+
+
+```{r}
+library(ggplot2)
+DimPlot(mydata_filtrd, reduction = "pca")
+ElbowPlot(mydata_filtrd)
+```
+
+## Cluster cells
+
+There are two main steps
+
+* Make a shared Nearest Neighbor graph : identify the k-nearest neighbours of each cell (by default Seurat takes k=20 neighbours). The distance is calculated using the coordinates from the PCA.
+* Make clusters (community of cells) using Leiden algorithm. You will need to specify the number of clusters depends on the resolution parameter chosen (the higher, the more group)
+```{r}
+nPC = 20
+mydata_filtrd <- FindNeighbors(mydata_filtrd, dims = 1:nPC)
+mydata_filtrd <- FindClusters(mydata_filtrd, resolution = 0.5)
+
+```
+Usually the clustering are presented using UMAP which visually separates the group more nicely than PCA.
+```{r}
+# If you haven't installed UMAP, you can do so via reticulate::py_install(packages =
+# 'umap-learn')
+mydata_filtrd <- RunUMAP(mydata_filtrd, dims = 1:nPC)
+DimPlot(mydata_filtrd, reduction = "umap")
+
+```
+### Cluster identity
+One clustering is done, your biological work starts. You need to annotate the clusters. One way is to look at genes that are differentially expressed... but we won't have the time to go in details 
+
+```{r}
+# find all markers of cluster 1
+cluster1.markers <- FindMarkers(mydata_filtrd, ident.1 = 1, min.pct = 0.25)
+head(cluster1.markers, n = 5)
+```
+```{r}
+VlnPlot(mydata_filtrd, features = c("Mes2", "sna"))
+```
+

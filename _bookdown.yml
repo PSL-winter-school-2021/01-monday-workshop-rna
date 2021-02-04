@@ -1,7 +1,6 @@
 book_filename: "01-monday-workshop-rna"
 language:
   ui:
-    chapter_name: "Chapter "
+    chapter_name: " "
 delete_merged_file: true
 output_dir: "docs"
-rmd_subdir: ["analysis"]
