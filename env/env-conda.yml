@@ -1,0 +1,6 @@
+name: env_name
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+  - r
