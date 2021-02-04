@@ -12,9 +12,5 @@ github-repo: "git@github.com:PSL-winter-school-2021/01-monday-workshop-rna.git"
 
 ```{r knitr, include=FALSE}
 # Automatically creates a bib database for R packages
-knitr::write_bib(c(
-				 .packages(), 'bookdown', 'knitr', 'rmarkdown'),
-				 'env/packages.bib')
-# Adds an option to show / hide the code dynamically in the report
-knitr::read_chunk('scripts/R/rmd_code_folding.R')
+knitr::write_bib(c(.packages(), 'bookdown', 'knitr', 'rmarkdown'))
 ```

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 3 Identify cell populations | Report title</title>
+  <meta name="description" content=" 3 Identify cell populations | Report title" />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 3 Identify cell populations | Report title" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="git@github.com:PSL-winter-school-2021/01-monday-workshop-rna.git" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 3 Identify cell populations | Report title" />
+  
+  
+  
+
+<meta name="author" content="Lorette Noiret, Nathalie Lehmann, Eric Van Leen" />
+
+
+<meta name="date" content="2021-02-05" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="basic-single-cell-pipeline.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="introdution.html"><a href="introdution.html"><i class="fa fa-check"></i>Introdution</a><ul>
+<li class="chapter" data-level="" data-path="introdution.html"><a href="introdution.html#sources-of-inspiration"><i class="fa fa-check"></i>Sources of inspiration</a></li>
+<li class="chapter" data-level="" data-path="introdution.html"><a href="introdution.html#bibliography"><i class="fa fa-check"></i>Bibliography</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="working-with-seurat.html"><a href="working-with-seurat.html"><i class="fa fa-check"></i><b>1</b> Working with Seurat</a><ul>
+<li class="chapter" data-level="1.1" data-path="working-with-seurat.html"><a href="working-with-seurat.html#load-the-library"><i class="fa fa-check"></i><b>1.1</b> Load the library</a></li>
+<li class="chapter" data-level="1.2" data-path="working-with-seurat.html"><a href="working-with-seurat.html#import-the-data"><i class="fa fa-check"></i><b>1.2</b> Import the data</a></li>
+<li class="chapter" data-level="1.3" data-path="working-with-seurat.html"><a href="working-with-seurat.html#explore-the-seurat-data-structure"><i class="fa fa-check"></i><b>1.3</b> Explore the Seurat data structure</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basic-single-cell-pipeline.html"><a href="basic-single-cell-pipeline.html"><i class="fa fa-check"></i><b>2</b> Basic single cell pipeline</a><ul>
+<li class="chapter" data-level="2.1" data-path="basic-single-cell-pipeline.html"><a href="basic-single-cell-pipeline.html#remove-low-quality-cells"><i class="fa fa-check"></i><b>2.1</b> Remove “low quality cells”</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="basic-single-cell-pipeline.html"><a href="basic-single-cell-pipeline.html#number-of-genes-detected-per-cell"><i class="fa fa-check"></i><b>2.1.1</b> Number of genes detected per cell</a></li>
+<li class="chapter" data-level="2.1.2" data-path="basic-single-cell-pipeline.html"><a href="basic-single-cell-pipeline.html#number-of-umis-per-cell"><i class="fa fa-check"></i><b>2.1.2</b> Number of UMIs per cell</a></li>
+<li class="chapter" data-level="2.1.3" data-path="basic-single-cell-pipeline.html"><a href="basic-single-cell-pipeline.html#percentage-of-mitochondrial-genes"><i class="fa fa-check"></i><b>2.1.3</b> Percentage of mitochondrial genes</a></li>
+<li class="chapter" data-level="2.1.4" data-path="basic-single-cell-pipeline.html"><a href="basic-single-cell-pipeline.html#group-exercice-on-filtering"><i class="fa fa-check"></i><b>2.1.4</b> Group exercice on filtering</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="basic-single-cell-pipeline.html"><a href="basic-single-cell-pipeline.html#normalize-the-expression-in-cells"><i class="fa fa-check"></i><b>2.2</b> Normalize the expression in cells</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html"><i class="fa fa-check"></i><b>3</b> Identify cell populations</a><ul>
+<li class="chapter" data-level="3.1" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#select-highly-variables-hvg"><i class="fa fa-check"></i><b>3.1</b> Select highly variables (hvg)</a></li>
+<li class="chapter" data-level="3.2" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#dimension-reduction"><i class="fa fa-check"></i><b>3.2</b> Dimension Reduction</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#scaling"><i class="fa fa-check"></i><b>3.2.1</b> Scaling</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#cluster-cells"><i class="fa fa-check"></i><b>3.3</b> Cluster cells</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="4" data-path="session-info.html"><a href="session-info.html"><i class="fa fa-check"></i><b>4</b> Session info</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Report title</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="identify-cell-populations" class="section level1">
+<h1><span class="header-section-number"> 3</span> Identify cell populations</h1>
+<p>In this section, we will analyse further the data and try to identify sub-populations of cells. The objective is to create clusters of cells, i.e to make group of cells that share similar expression profile. The mains steps are as follow :</p>
+<ul>
+<li>Select a subset of genes to perfom the downstream analyses</li>
+<li>Perform a dimension reduction</li>
+<li>Cluster the cells</li>
+</ul>
+<div id="select-highly-variables-hvg" class="section level2">
+<h2><span class="header-section-number">3.1</span> Select highly variables (hvg)</h2>
+<p>The downstream analyses (dimension reduction and then clustering) will se performed on the subset of genes. The aims is to exclude genes with minor biological relevance and decrease the computational load.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="identify-cell-populations.html#cb31-1"></a><span class="co"># Find Variable Genes : </span></span>
+<span id="cb31-2"><a href="identify-cell-populations.html#cb31-2"></a>mydata_filtrd &lt;-<span class="st"> </span><span class="kw">FindVariableFeatures</span>(mydata_filtrd, <span class="dt">selection.method =</span> <span class="st">&quot;vst&quot;</span>, <span class="dt">nfeatures =</span> <span class="dv">2000</span>,<span class="dt">verbose =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb31-3"><a href="identify-cell-populations.html#cb31-3"></a></span>
+<span id="cb31-4"><a href="identify-cell-populations.html#cb31-4"></a><span class="co"># Identify the 10 most highly variable genes</span></span>
+<span id="cb31-5"><a href="identify-cell-populations.html#cb31-5"></a>top10 &lt;-<span class="st"> </span><span class="kw">head</span>(<span class="kw">VariableFeatures</span>(mydata_filtrd), <span class="dv">10</span>)</span>
+<span id="cb31-6"><a href="identify-cell-populations.html#cb31-6"></a><span class="co"># you can also access the complete list using : </span></span>
+<span id="cb31-7"><a href="identify-cell-populations.html#cb31-7"></a>list_hvg =<span class="st"> </span>mydata_filtrd<span class="op">@</span>assays<span class="op">$</span>RNA<span class="op">@</span>var.features</span></code></pre></div>
+</div>
+<div id="dimension-reduction" class="section level2">
+<h2><span class="header-section-number">3.2</span> Dimension Reduction</h2>
+<div id="scaling" class="section level3">
+<h3><span class="header-section-number">3.2.1</span> Scaling</h3>
+<p>Expression of each gene is scaled (centered around its mean with a unit standard deviation). This step gives equal weight to all genes while performing the in the dimension reduction, and insure that the most expressed genes do not dominate.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="identify-cell-populations.html#cb32-1"></a>mydata_filtrd &lt;-<span class="st"> </span><span class="kw">ScaleData</span>(mydata_filtrd)</span></code></pre></div>
+<pre><code>## Centering and scaling data matrix</code></pre>
+<p>The scaled data are stored in the ‘scaled’ slot.</p>
+<p>By default, scaling is only performed on the variable genes.
+### PCA
+Even though, the gene selection step reduces the data considerably, there is a further need to reduce dimension to keep the most important variability in the data.There are several methods for dimension reduction, the most commonly used is PCA, but you can also check more single-cell specific methods that tries to cope with over-dispersion of the data such as ZIFA and pCMF.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="identify-cell-populations.html#cb34-1"></a>mydata_filtrd &lt;-<span class="st"> </span><span class="kw">RunPCA</span>(mydata_filtrd, <span class="dt">features =</span> <span class="kw">VariableFeatures</span>(<span class="dt">object =</span> mydata_filtrd))</span></code></pre></div>
+<pre><code>## PC_ 1 
+## Positive:  CG4440, CG10035, Bacc, CG13427, Df31, Tom, bl, fax, CG15628, BobA 
+##     hth, ed, CG5059, ci, tna, Gp150, sqd, sdt, l(3)neo38, N 
+##     Ppa, grh, vfl, Dl, roX1, wech, HmgD, CR43887, ASPP, Brd 
+## Negative:  nos, spz, del, CG8507, stai, CG14545, Sesn, shu, CG17698, CG6287 
+##     CanB2, BigH1, pgc, 26-29-p, stil, Eno, PyK, CG7530, krimp, aret 
+##     CG17270, Taf12L, Cen, fabp, CG31689, Gapdh1, exu, CG17658, CG6967, CG9917 
+## PC_ 2 
+## Positive:  Lac, ASPP, Ptr, cno, grh, cv-2, aop, CG2162, jbug, btsz 
+##     sdt, crb, mew, Tom, fra, CG34383, 5-HT2A, CG34224, Doc1, CG45263 
+##     blot, hbs, Mipp1, ci, CG10176, pnr, wun2, dpp, bib, CG42788 
+## Negative:  twi, ventrally-expressed-protein-D, CG4500, Cyp310a1, sna, ltl, Ilp4, CG12177, CG16758, Mes2 
+##     stumps, if, htl, CG14688, CadN, zfh1, Mdr49, CG3036, Pka-C3, tin 
+##     sty, Asph, sprt, Inx3, CR45361, Mef2, Nplp2, be, Act87E, Ndae1 
+## PC_ 3 
+## Positive:  CG8147, srp, ps, Lapsyn, fkh, peb, CG2930, hkb, Doc3, Oatp74D 
+##     CG15236, MRE23, exex, Gmap, Doc2, CG32053, Fas2, DNaseII, Ptx1, egr 
+##     CG31431, ImpE2, kek1, mspo, tup, Doc1, sas, ush, CG18754, Pdp1 
+## Negative:  dan, SoxN, sca, ths, CG6398, CG5059, bl, lea, ImpL2, Imp 
+##     Pino, rdx, neur, RnrS, Meltrin, sbb, brk, Shroom, noc, pyr 
+##     mid, sog, danr, Toll-6, wb, slp1, lok, pico, Atg18a, path 
+## PC_ 4 
+## Positive:  aay, apt, Cys, sog, CG2930, phyl, mnd, fkh, CG32053, bib 
+##     MRE23, DNaseII, brk, pDsRed, Gmap, RpL10Ab, CG8654, ps, Sox21a, CG18754 
+##     a, CG13427, Lac, CG31431, SoxN, exex, Ocho, Pdp1, vnd, Obp99a 
+## Negative:  net, Ama, Nrt, CrebA, CycE, emc, mirr, zfh1, rst, how 
+##     dap, chrb, Alk, pAbp, Glut4EF, hbs, CG45263, wake, kay, SNCF 
+##     Dtg, CG14427, zen, spen, if, CadN, chn, ptc, vfl, shep 
+## PC_ 5 
+## Positive:  SNCF, zen, zen2, Ama, C15, Z600, CG13653, rho, net, kay 
+##     Alk, CG8960, alphagamma-element:CR32865, opa, Dtg, CG14111, CG13454, CG13654, wntD, toc 
+##     Ance, rst, dap, ush, Ect4, CG14915, CR44953, egr, E(spl)m5-HLH, Doc3 
+## Negative:  dm, Bsg, Tet, spoon, Dl, CG12535, Trf2, CG9821, mt:CoI, apt 
+##     Hrb27C, sm, pAbp, Ssdp, CG34380, mt:ND1, Oatp74D, fs(1)h, Smr, sqd 
+##     roX1, pum, msi, CR45874, CG45050, CG11138, AGO1, CG43736, east, RapGAP1</code></pre>
+<p>It is worth analysing the genes that contribute the most to each axes. It may help you to identify genes whose expression decrease/increase together. The DimHeatmap function in Seurat helps you to visualise the genes that are driving the components and allows to get some insight about the heterogeneity of the data.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="identify-cell-populations.html#cb36-1"></a><span class="co"># Examine and visualize PCA results :</span></span>
+<span id="cb36-2"><a href="identify-cell-populations.html#cb36-2"></a><span class="kw">print</span>(mydata_filtrd[[<span class="st">&quot;pca&quot;</span>]], <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">nfeatures =</span> <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## PC_ 1 
+## Positive:  CG4440, CG10035, Bacc, CG13427, Df31 
+## Negative:  nos, spz, del, CG8507, stai 
+## PC_ 2 
+## Positive:  Lac, ASPP, Ptr, cno, grh 
+## Negative:  twi, ventrally-expressed-protein-D, CG4500, Cyp310a1, sna 
+## PC_ 3 
+## Positive:  CG8147, srp, ps, Lapsyn, fkh 
+## Negative:  dan, SoxN, sca, ths, CG6398 
+## PC_ 4 
+## Positive:  aay, apt, Cys, sog, CG2930 
+## Negative:  net, Ama, Nrt, CrebA, CycE 
+## PC_ 5 
+## Positive:  SNCF, zen, zen2, Ama, C15 
+## Negative:  dm, Bsg, Tet, spoon, Dl</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="identify-cell-populations.html#cb38-1"></a><span class="kw">VizDimLoadings</span>(mydata_filtrd, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>)</span></code></pre></div>
+<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="identify-cell-populations.html#cb39-1"></a><span class="co"># Plot expression of gene driving principal component </span></span>
+<span id="cb39-2"><a href="identify-cell-populations.html#cb39-2"></a><span class="kw">DimHeatmap</span>(mydata_filtrd, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-16-2.png" width="672" /></p>
+<p>After PCA, you need to decide how many components you want to keep (for UMAP and/or clustering). Seurat proposes a statistical methods with the function JackStraw. Alternatively you can plot the explained variance using the ElbowPlot. In practical case, around 30-50 principal components.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="identify-cell-populations.html#cb40-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb40-2"><a href="identify-cell-populations.html#cb40-2"></a><span class="kw">DimPlot</span>(mydata_filtrd, <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>)</span></code></pre></div>
+<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="identify-cell-populations.html#cb41-1"></a><span class="kw">ElbowPlot</span>(mydata_filtrd)</span></code></pre></div>
+<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-17-2.png" width="672" /></p>
+</div>
+</div>
+<div id="cluster-cells" class="section level2">
+<h2><span class="header-section-number">3.3</span> Cluster cells</h2>
+<p>There are two main steps</p>
+<ul>
+<li>Make a shared Nearest Neighbor graph : identify the k-nearest neighbours of each cell (by default Seurat takes k=20 neighbours). The distance is calculated using the coordinates from the PCA.</li>
+<li>Make clusters (community of cells) using Leiden algorithm. You will need to specify the number of clusters depends on the resolution parameter chosen (the higher, the more group)</li>
+</ul>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="identify-cell-populations.html#cb42-1"></a>nPC =<span class="st"> </span><span class="dv">20</span></span>
+<span id="cb42-2"><a href="identify-cell-populations.html#cb42-2"></a>mydata_filtrd &lt;-<span class="st"> </span><span class="kw">FindNeighbors</span>(mydata_filtrd, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span>nPC)</span></code></pre></div>
+<pre><code>## Computing nearest neighbor graph</code></pre>
+<pre><code>## Computing SNN</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="identify-cell-populations.html#cb45-1"></a>mydata_filtrd &lt;-<span class="st"> </span><span class="kw">FindClusters</span>(mydata_filtrd, <span class="dt">resolution =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<pre><code>## Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+## 
+## Number of nodes: 399
+## Number of edges: 13157
+## 
+## Running Louvain algorithm...
+## Maximum modularity in 10 random starts: 0.7522
+## Number of communities: 5
+## Elapsed time: 0 seconds</code></pre>
+<p>Usually the clustering are presented using UMAP which visually separates the group more nicely than PCA.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="identify-cell-populations.html#cb47-1"></a><span class="co"># If you haven&#39;t installed UMAP, you can do so via reticulate::py_install(packages =</span></span>
+<span id="cb47-2"><a href="identify-cell-populations.html#cb47-2"></a><span class="co"># &#39;umap-learn&#39;)</span></span>
+<span id="cb47-3"><a href="identify-cell-populations.html#cb47-3"></a>mydata_filtrd &lt;-<span class="st"> </span><span class="kw">RunUMAP</span>(mydata_filtrd, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span>nPC)</span></code></pre></div>
+<pre><code>## Warning: The default method for RunUMAP has changed from calling Python UMAP via reticulate to the R-native UWOT using the cosine metric
+## To use Python UMAP via reticulate, set umap.method to &#39;umap-learn&#39; and metric to &#39;correlation&#39;
+## This message will be shown once per session</code></pre>
+<pre><code>## 00:05:03 UMAP embedding parameters a = 0.9922 b = 1.112</code></pre>
+<pre><code>## 00:05:03 Read 399 rows and found 20 numeric columns</code></pre>
+<pre><code>## 00:05:03 Using Annoy for neighbor search, n_neighbors = 30</code></pre>
+<pre><code>## 00:05:03 Building Annoy index with metric = cosine, n_trees = 50</code></pre>
+<pre><code>## 0%   10   20   30   40   50   60   70   80   90   100%</code></pre>
+<pre><code>## [----|----|----|----|----|----|----|----|----|----|</code></pre>
+<pre><code>## **************************************************|
+## 00:05:03 Writing NN index file to temp file /tmp/RtmprDQPdk/file1a8ad32098f2c8
+## 00:05:03 Searching Annoy index using 1 thread, search_k = 3000
+## 00:05:03 Annoy recall = 100%
+## 00:05:03 Commencing smooth kNN distance calibration using 1 thread
+## 00:05:04 Initializing from normalized Laplacian + noise
+## 00:05:04 Commencing optimization for 500 epochs, with 14528 positive edges
+## 00:05:05 Optimization finished</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="identify-cell-populations.html#cb56-1"></a><span class="kw">DimPlot</span>(mydata_filtrd, <span class="dt">reduction =</span> <span class="st">&quot;umap&quot;</span>)</span></code></pre></div>
+<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+### Cluster identity
+One clustering is done, your biological work starts. You need to annotate the clusters. One way is to look at genes that are differentially expressed… but we won’t have the time to go in details</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="identify-cell-populations.html#cb57-1"></a><span class="co"># find all markers of cluster 1</span></span>
+<span id="cb57-2"><a href="identify-cell-populations.html#cb57-2"></a>cluster1.markers &lt;-<span class="st"> </span><span class="kw">FindMarkers</span>(mydata_filtrd, <span class="dt">ident.1 =</span> <span class="dv">1</span>, <span class="dt">min.pct =</span> <span class="fl">0.25</span>)</span>
+<span id="cb57-3"><a href="identify-cell-populations.html#cb57-3"></a><span class="kw">head</span>(cluster1.markers, <span class="dt">n =</span> <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>##             p_val avg_logFC pct.1 pct.2    p_val_adj
+## zfh1 2.095262e-57  2.189439 0.905 0.115 3.566974e-53
+## if   5.946009e-56  1.396971 0.842 0.069 1.012249e-51
+## htl  2.882346e-55  1.171352 0.842 0.069 4.906906e-51
+## sna  2.168411e-53  1.824705 0.937 0.181 3.691503e-49
+## Mes2 4.547330e-52  1.632343 1.000 0.283 7.741375e-48</code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="identify-cell-populations.html#cb59-1"></a><span class="kw">VlnPlot</span>(mydata_filtrd, <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;Mes2&quot;</span>, <span class="st">&quot;sna&quot;</span>))</span></code></pre></div>
+<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="basic-single-cell-pipeline.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
