@@ -117,6 +117,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<link rel="stylesheet" href="data/notebook/css/custom.css" type="text/css" />
 </head>
 
 <body>
@@ -261,8 +262,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
-"github": true,
-"facebook": false,
+"github": false,
+"facebook": true,
 "twitter": true,
 "linkedin": false,
 "weibo": false,
@@ -275,7 +276,10 @@ gitbook.start({
 "family": "sans",
 "size": 2
 },
-"edit": null,
+"edit": {
+"link": null,
+"text": null
+},
 "history": {
 "link": null,
 "text": null
@@ -286,15 +290,8 @@ gitbook.start({
 },
 "download": null,
 "toc": {
-"collapse": null,
-"scroll_highlight": true
-},
-"toc_depth": 5,
-"toolbar": {
-"position": "fixed"
-},
-"search": true,
-"info": true
+"collapse": "subsection"
+}
 });
 });
 </script>

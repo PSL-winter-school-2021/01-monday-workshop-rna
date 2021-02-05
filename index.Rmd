@@ -5,32 +5,6 @@ date: "`r Sys.Date()`"
 output:
  bookdown::gitbook:
   css: "data/notebook/css/custom.css"
-  toc_depth: 5
-  config:
-   toc:
-    collapse: yes
-    scroll_highlight: yes
-    before: null
-    after: null
-   toolbar:
-    position: fixed
-   edit : null
-   download: null
-   search: yes
-   fontsettings:
-    theme: white
-    family: sans
-    size: 2
-   sharing:
-    facebook: no
-    github: yes
-    twitter: yes
-    linkedin: no
-    weibo: no
-    instapaper: no
-    vk: no
-    all: ['twitter', 'linkedin']
-   info: yes
 documentclass: book
 bibliography: references.bib
 biblio-style: apalike

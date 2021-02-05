@@ -117,6 +117,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<link rel="stylesheet" href="data/notebook/css/custom.css" type="text/css" />
 </head>
 
 <body>
@@ -318,20 +319,20 @@ This step gives equal weight to all genes while performing the dimension reducti
 <pre><code>## Warning: The default method for RunUMAP has changed from calling Python UMAP via reticulate to the R-native UWOT using the cosine metric
 ## To use Python UMAP via reticulate, set umap.method to &#39;umap-learn&#39; and metric to &#39;correlation&#39;
 ## This message will be shown once per session</code></pre>
-<pre><code>## 22:57:15 UMAP embedding parameters a = 0.9922 b = 1.112</code></pre>
-<pre><code>## 22:57:15 Read 399 rows and found 30 numeric columns</code></pre>
-<pre><code>## 22:57:15 Using Annoy for neighbor search, n_neighbors = 30</code></pre>
-<pre><code>## 22:57:15 Building Annoy index with metric = cosine, n_trees = 50</code></pre>
+<pre><code>## 23:40:05 UMAP embedding parameters a = 0.9922 b = 1.112</code></pre>
+<pre><code>## 23:40:05 Read 399 rows and found 30 numeric columns</code></pre>
+<pre><code>## 23:40:05 Using Annoy for neighbor search, n_neighbors = 30</code></pre>
+<pre><code>## 23:40:05 Building Annoy index with metric = cosine, n_trees = 50</code></pre>
 <pre><code>## 0%   10   20   30   40   50   60   70   80   90   100%</code></pre>
 <pre><code>## [----|----|----|----|----|----|----|----|----|----|</code></pre>
 <pre><code>## **************************************************|
-## 22:57:15 Writing NN index file to temp file /tmp/Rtmp76XAzo/file1adb4c56aaea37
-## 22:57:15 Searching Annoy index using 1 thread, search_k = 3000
-## 22:57:15 Annoy recall = 100%
-## 22:57:16 Commencing smooth kNN distance calibration using 1 thread
-## 22:57:16 Initializing from normalized Laplacian + noise
-## 22:57:17 Commencing optimization for 500 epochs, with 14684 positive edges
-## 22:57:18 Optimization finished</code></pre>
+## 23:40:05 Writing NN index file to temp file /tmp/Rtmpsb92WH/file1ae72572caf753
+## 23:40:05 Searching Annoy index using 1 thread, search_k = 3000
+## 23:40:05 Annoy recall = 100%
+## 23:40:05 Commencing smooth kNN distance calibration using 1 thread
+## 23:40:06 Initializing from normalized Laplacian + noise
+## 23:40:06 Commencing optimization for 500 epochs, with 14684 positive edges
+## 23:40:07 Optimization finished</code></pre>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="identify-cell-populations.html#cb56-1"></a><span class="kw">DimPlot</span>(mydata_filtrd, <span class="dt">reduction =</span> <span class="st">&quot;umap&quot;</span>)</span></code></pre></div>
 <p><img src="01-monday-workshop-rna_files/figure-html/umap-1.png" width="672" /></p>
 </div>
@@ -381,8 +382,8 @@ Now, your biological work starts. You need to annotate the clusters, and check i
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
-"github": true,
-"facebook": false,
+"github": false,
+"facebook": true,
 "twitter": true,
 "linkedin": false,
 "weibo": false,
@@ -395,7 +396,10 @@ gitbook.start({
 "family": "sans",
 "size": 2
 },
-"edit": null,
+"edit": {
+"link": null,
+"text": null
+},
 "history": {
 "link": null,
 "text": null
@@ -406,15 +410,8 @@ gitbook.start({
 },
 "download": null,
 "toc": {
-"collapse": null,
-"scroll_highlight": true
-},
-"toc_depth": 5,
-"toolbar": {
-"position": "fixed"
-},
-"search": true,
-"info": true
+"collapse": "subsection"
+}
 });
 });
 </script>
