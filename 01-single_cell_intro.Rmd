@@ -5,7 +5,7 @@
 * how to clean single cells data and extract high quality cells 
 * identify sub-populations of cells 
 
-We will be using the R packages Seurat and apply it functionalities to subset of the data publilshied with Karaiskos et al (replicate3). 
+We will be using the R packages Seurat and apply it functionalities to subset of the data published with Karaiskos et al. (replicate3). 
 
 
 ## Sources of inspiration{.unnumbered}

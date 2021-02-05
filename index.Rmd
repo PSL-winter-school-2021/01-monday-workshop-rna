@@ -1,6 +1,6 @@
 ---
-title: "Report title"
-author: "Lorette Noiret, Nathalie Lehmann, Eric Van Leen"
+title: "Basic single-cell RNA-seq processing"
+author: "Lorette Noiret, Nathalie Lehmann, Eric van Leen"
 date: "`r Sys.Date()`"
 output: bookdown::gitbook
 documentclass: book
