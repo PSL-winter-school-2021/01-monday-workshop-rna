@@ -33,7 +33,7 @@ scRNAseqdata are presented in a matrix, where each row represents a gene and eac
 In this pratical session, we will work with the data from "replicate3" published along with the article by Karaiskos. 
 
 We will first load the text file then create a "Seurat object", the data structure suitable to work with Seurat. 
-```{r nice-fig, fig.cap='Here is a nice figure!', out.width='80%', fig.asp=.75, fig.align='center'}
+```{r }
 raw_counts<-read.csv2(file="data/data_day1/GSM2494785_dge_mel_rep3.txt",
                        sep="\t")
 raw_counts[1:3,1:5]
