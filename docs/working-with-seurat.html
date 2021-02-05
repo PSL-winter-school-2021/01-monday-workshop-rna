@@ -185,9 +185,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>scRNAseqdata are presented in a matrix, where each row represents a gene and each column represents a single cell with a raw count (UMI).</p>
 <p>In this pratical session, we will work with the data from “replicate3” published along with the article by Karaiskos.</p>
 <p>We will first load the text file then create a “Seurat object”, the data structure suitable to work with Seurat.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="working-with-seurat.html#cb3-1"></a>raw_counts&lt;-<span class="kw">read.csv2</span>(<span class="dt">file=</span><span class="st">&quot;data/data_day1/GSM2494785_dge_mel_rep3.txt&quot;</span>,</span>
-<span id="cb3-2"><a href="working-with-seurat.html#cb3-2"></a>                       <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)</span>
-<span id="cb3-3"><a href="working-with-seurat.html#cb3-3"></a>raw_counts[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="working-with-seurat.html#cb3-1"></a>raw_counts&lt;-<span class="kw">read.csv2</span>(<span class="dt">file=</span><span class="st">&quot;data/data_day1/GSM2494785_dge_mel_rep3.txt&quot;</span>,<span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)</span>
+<span id="cb3-2"><a href="working-with-seurat.html#cb3-2"></a>raw_counts[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</span></code></pre></div>
 <pre><code>##            GENE TCCCTAAAGTAN TTTAAGCTCTTN AGAGAGAATACA GCCCGTGGAGCA
 ## 1         128up            0            1            1            2
 ## 2 14-3-3epsilon          426          371          438          380

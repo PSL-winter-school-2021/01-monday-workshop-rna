@@ -196,7 +196,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="number-of-genes-detected-per-cell" class="section level3">
 <h3><span class="header-section-number">2.1.1</span> Number of genes detected per cell</h3>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="basic-single-cell-pipeline.html#cb17-1"></a><span class="kw">barplot</span>(<span class="kw">sort</span>(mydata<span class="op">$</span>nFeature_RNA), <span class="dt">main=</span><span class="st">&quot;Number of genes detected/Cell&quot;</span>, <span class="dt">names.arg =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
-<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="basic-single-cell-pipeline.html#cb18-1"></a><span class="kw">quantile</span>(mydata<span class="op">$</span>nFeature_RNA)</span></code></pre></div>
 <pre><code>##     0%    25%    50%    75%   100% 
 ##  235.0  705.5 1312.0 2593.5 6322.0</code></pre>
@@ -204,11 +204,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="number-of-umis-per-cell" class="section level3">
 <h3><span class="header-section-number">2.1.2</span> Number of UMIs per cell</h3>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="basic-single-cell-pipeline.html#cb20-1"></a><span class="kw">barplot</span>(<span class="kw">sort</span>(mydata<span class="op">$</span>nCount_RNA), <span class="dt">main=</span><span class="st">&quot;Number of UMI/Cell&quot;</span>,<span class="dt">names.arg =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
-<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="basic-single-cell-pipeline.html#cb21-1"></a><span class="kw">VlnPlot</span>(mydata, <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;nFeature_RNA&quot;</span>, <span class="st">&quot;nCount_RNA&quot;</span>), <span class="dt">ncol =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-8-2.png" width="672" /></p>
+<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-9-2.png" width="672" /></p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="basic-single-cell-pipeline.html#cb22-1"></a><span class="kw">FeatureScatter</span>(mydata, <span class="dt">feature1 =</span> <span class="st">&quot;nCount_RNA&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;nFeature_RNA&quot;</span>)</span></code></pre></div>
-<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-8-3.png" width="672" /></p>
+<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-9-3.png" width="672" /></p>
 <p>You aim while looking at these graphs is to define thresholds/cutoff that you will aply to filter cell out. Try to identify the cells that behave differently from the main population.</p>
 </div>
 <div id="percentage-of-mitochondrial-genes" class="section level3">
@@ -221,11 +221,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb23-4"><a href="basic-single-cell-pipeline.html#cb23-4"></a><span class="co">#list = c(&quot;mTerf3&quot;,&quot;Mtpalpha&quot; ,&quot;mTTF&quot;)</span></span>
 <span id="cb23-5"><a href="basic-single-cell-pipeline.html#cb23-5"></a><span class="co">#mydata[[&quot;percent.mt2&quot;]] &lt;- PercentageFeatureSet(mydata, features=list_mito )</span></span></code></pre></div>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="basic-single-cell-pipeline.html#cb24-1"></a><span class="kw">VlnPlot</span>(mydata, <span class="dt">features =</span> <span class="st">&quot;percent.mt&quot;</span>)</span></code></pre></div>
-<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="basic-single-cell-pipeline.html#cb25-1"></a><span class="kw">FeatureScatter</span>(mydata, <span class="dt">feature1 =</span> <span class="st">&quot;nCount_RNA&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;percent.mt&quot;</span>)</span></code></pre></div>
-<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-10-2.png" width="672" /></p>
+<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-11-2.png" width="672" /></p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="basic-single-cell-pipeline.html#cb26-1"></a><span class="kw">FeatureScatter</span>(mydata, <span class="dt">feature1 =</span> <span class="st">&quot;nFeature_RNA&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;percent.mt&quot;</span>)</span></code></pre></div>
-<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-10-3.png" width="672" /></p>
+<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-11-3.png" width="672" /></p>
 </div>
 <div id="group-exercice-on-filtering" class="section level3">
 <h3><span class="header-section-number">2.1.4</span> Group exercice on filtering</h3>
@@ -244,11 +244,11 @@ From the various graphs, decide the levels for low high quality cells dependant 
 <span id="cb27-10"><a href="basic-single-cell-pipeline.html#cb27-10"></a>mydata_filtrd &lt;-<span class="st"> </span><span class="kw">subset</span>(mydata, <span class="dt">subset =</span> nFeature_RNA <span class="op">&gt;</span><span class="st"> </span>minGene <span class="op">&amp;</span><span class="st"> </span>nFeature_RNA <span class="op">&lt;</span><span class="st"> </span>maxGene <span class="op">&amp;</span><span class="st"> </span>nCount_RNA <span class="op">&gt;</span><span class="st"> </span>minUMI  <span class="op">&amp;</span><span class="st"> </span>nCount_RNA <span class="op">&lt;</span><span class="st"> </span>maxUMI <span class="op">&amp;</span><span class="st"> </span>percent.mt <span class="op">&lt;</span><span class="st"> </span>maxpct_mt)</span>
 <span id="cb27-11"><a href="basic-single-cell-pipeline.html#cb27-11"></a></span>
 <span id="cb27-12"><a href="basic-single-cell-pipeline.html#cb27-12"></a><span class="kw">VlnPlot</span>(mydata_filtrd, <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;nFeature_RNA&quot;</span>, <span class="st">&quot;nCount_RNA&quot;</span>, <span class="st">&quot;percent.mt&quot;</span>), <span class="dt">ncol =</span> <span class="dv">3</span>)</span></code></pre></div>
-<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="basic-single-cell-pipeline.html#cb28-1"></a><span class="kw">FeatureScatter</span>(mydata_filtrd, <span class="dt">feature1 =</span> <span class="st">&quot;nCount_RNA&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;percent.mt&quot;</span>)</span></code></pre></div>
-<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-11-2.png" width="672" /></p>
+<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-12-2.png" width="672" /></p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="basic-single-cell-pipeline.html#cb29-1"></a><span class="kw">FeatureScatter</span>(mydata_filtrd, <span class="dt">feature1 =</span> <span class="st">&quot;nCount_RNA&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;nFeature_RNA&quot;</span>)</span></code></pre></div>
-<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-11-3.png" width="672" /></p>
+<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-12-3.png" width="672" /></p>
 </div>
 </div>
 <div id="normalize-the-expression-in-cells" class="section level2">
