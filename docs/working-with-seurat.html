@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title> 1 Working with Seurat | Report title</title>
-  <meta name="description" content=" 1 Working with Seurat | Report title" />
+  <title> 1 Working with Seurat | Basic single-cell RNA-seq processing</title>
+  <meta name="description" content=" 1 Working with Seurat | Basic single-cell RNA-seq processing" />
   <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
-  <meta property="og:title" content=" 1 Working with Seurat | Report title" />
+  <meta property="og:title" content=" 1 Working with Seurat | Basic single-cell RNA-seq processing" />
   <meta property="og:type" content="book" />
   
   
@@ -16,12 +16,12 @@
   <meta name="github-repo" content="git@github.com:PSL-winter-school-2021/01-monday-workshop-rna.git" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content=" 1 Working with Seurat | Report title" />
+  <meta name="twitter:title" content=" 1 Working with Seurat | Basic single-cell RNA-seq processing" />
   
   
   
 
-<meta name="author" content="Lorette Noiret, Nathalie Lehmann, Eric Van Leen" />
+<meta name="author" content="Lorette Noiret, Nathalie Lehmann, Eric van Leen" />
 
 
 <meta name="date" content="2021-02-05" />
@@ -129,34 +129,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="" data-path="introdution.html"><a href="introdution.html"><i class="fa fa-check"></i>Introdution</a><ul>
-<li class="chapter" data-level="" data-path="introdution.html"><a href="introdution.html#sources-of-inspiration"><i class="fa fa-check"></i>Sources of inspiration</a></li>
-<li class="chapter" data-level="" data-path="introdution.html"><a href="introdution.html#bibliography"><i class="fa fa-check"></i>Bibliography</a></li>
-</ul></li>
+<li class="chapter" data-level="" data-path="introdution.html"><a href="introdution.html"><i class="fa fa-check"></i>Introdution</a></li>
 <li class="chapter" data-level="1" data-path="working-with-seurat.html"><a href="working-with-seurat.html"><i class="fa fa-check"></i><b>1</b> Working with Seurat</a><ul>
 <li class="chapter" data-level="1.1" data-path="working-with-seurat.html"><a href="working-with-seurat.html#load-the-library"><i class="fa fa-check"></i><b>1.1</b> Load the library</a></li>
 <li class="chapter" data-level="1.2" data-path="working-with-seurat.html"><a href="working-with-seurat.html#import-the-data"><i class="fa fa-check"></i><b>1.2</b> Import the data</a></li>
 <li class="chapter" data-level="1.3" data-path="working-with-seurat.html"><a href="working-with-seurat.html#explore-the-seurat-data-structure"><i class="fa fa-check"></i><b>1.3</b> Explore the Seurat data structure</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="basic-single-cell-pipeline.html"><a href="basic-single-cell-pipeline.html"><i class="fa fa-check"></i><b>2</b> Basic single cell pipeline</a><ul>
-<li class="chapter" data-level="2.1" data-path="basic-single-cell-pipeline.html"><a href="basic-single-cell-pipeline.html#remove-low-quality-cells"><i class="fa fa-check"></i><b>2.1</b> Remove “low quality cells”</a><ul>
+<li class="chapter" data-level="2.1" data-path="basic-single-cell-pipeline.html"><a href="basic-single-cell-pipeline.html#remove-low-quality-cells"><i class="fa fa-check"></i><b>2.1</b> Remove “low quality” cells</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="basic-single-cell-pipeline.html"><a href="basic-single-cell-pipeline.html#number-of-genes-detected-per-cell"><i class="fa fa-check"></i><b>2.1.1</b> Number of genes detected per cell</a></li>
 <li class="chapter" data-level="2.1.2" data-path="basic-single-cell-pipeline.html"><a href="basic-single-cell-pipeline.html#number-of-umis-per-cell"><i class="fa fa-check"></i><b>2.1.2</b> Number of UMIs per cell</a></li>
 <li class="chapter" data-level="2.1.3" data-path="basic-single-cell-pipeline.html"><a href="basic-single-cell-pipeline.html#percentage-of-mitochondrial-genes"><i class="fa fa-check"></i><b>2.1.3</b> Percentage of mitochondrial genes</a></li>
-<li class="chapter" data-level="2.1.4" data-path="basic-single-cell-pipeline.html"><a href="basic-single-cell-pipeline.html#group-exercice-on-filtering"><i class="fa fa-check"></i><b>2.1.4</b> Group exercice on filtering</a></li>
+<li class="chapter" data-level="2.1.4" data-path="basic-single-cell-pipeline.html"><a href="basic-single-cell-pipeline.html#group-exercise-on-filtering"><i class="fa fa-check"></i><b>2.1.4</b> Group exercise on filtering</a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="basic-single-cell-pipeline.html"><a href="basic-single-cell-pipeline.html#normalize-the-expression-in-cells"><i class="fa fa-check"></i><b>2.2</b> Normalize the expression in cells</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html"><i class="fa fa-check"></i><b>3</b> Identify cell populations</a><ul>
-<li class="chapter" data-level="3.1" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#select-highly-variables-hvg"><i class="fa fa-check"></i><b>3.1</b> Select highly variables (hvg)</a></li>
-<li class="chapter" data-level="3.2" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#dimension-reduction"><i class="fa fa-check"></i><b>3.2</b> Dimension Reduction</a><ul>
+<li class="chapter" data-level="3.1" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#hvg"><i class="fa fa-check"></i><b>3.1</b> Select highly variables (hvg)</a></li>
+<li class="chapter" data-level="3.2" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#dimension-reduction"><i class="fa fa-check"></i><b>3.2</b> Dimension reduction</a><ul>
 <li class="chapter" data-level="3.2.1" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#scaling"><i class="fa fa-check"></i><b>3.2.1</b> Scaling</a></li>
 <li class="chapter" data-level="3.2.2" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#pca"><i class="fa fa-check"></i><b>3.2.2</b> PCA</a></li>
 <li class="chapter" data-level="3.2.3" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#cluster-cells"><i class="fa fa-check"></i><b>3.2.3</b> Cluster cells</a></li>
-<li class="chapter" data-level="3.2.4" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#group-exercice"><i class="fa fa-check"></i><b>3.2.4</b> Group exercice</a></li>
+<li class="chapter" data-level="3.2.4" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#group-exercise"><i class="fa fa-check"></i><b>3.2.4</b> Group exercise</a></li>
+<li class="chapter" data-level="3.2.5" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#understand-your-clusters"><i class="fa fa-check"></i><b>3.2.5</b> Understand your clusters</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="chapter" data-level="4" data-path="session-info.html"><a href="session-info.html"><i class="fa fa-check"></i><b>4</b> Session info</a></li>
 </ul>
 
@@ -167,7 +164,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Report title</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Basic single-cell RNA-seq processing</a>
           </h1>
         </div>
 
@@ -187,7 +184,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">1.2</span> Import the data</h2>
 <p>Single-cell RNA-seq data are presented in a matrix, where each row represents a gene and each column represents a single cell with a raw count (UMI).
 We first load the text file then create a “Seurat object”, the data structure suitable to work with Seurat.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="working-with-seurat.html#cb3-1"></a>raw_counts&lt;-<span class="kw">read.csv2</span>(<span class="dt">file=</span><span class="st">&quot;data/data_day1/GSM2494785_dge_mel_rep3.txt&quot;</span>,<span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)</span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="working-with-seurat.html#cb3-1"></a>raw_counts &lt;-<span class="st"> </span><span class="kw">read.csv2</span>(<span class="dt">file=</span><span class="st">&quot;data/data_day1/GSM2494785_dge_mel_rep3.txt&quot;</span>,<span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)</span>
 <span id="cb3-2"><a href="working-with-seurat.html#cb3-2"></a>raw_counts[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</span></code></pre></div>
 <pre><code>##            GENE TCCCTAAAGTAN TTTAAGCTCTTN AGAGAGAATACA GCCCGTGGAGCA
 ## 1         128up            0            1            1            2
@@ -196,45 +193,44 @@ We first load the text file then create a “Seurat object”, the data structur
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="working-with-seurat.html#cb5-1"></a><span class="kw">print</span>(<span class="kw">dim</span>(raw_counts))</span></code></pre></div>
 <pre><code>## [1] 17026  1586</code></pre>
 <p>Here we have the expression of 17 026 genes in 1586 cells.</p>
-<p>To work with Seurat, you need to create a Seurat Object. Here, we create a Seurat object from our dataframe. We modify the table raw_counts to have the field “GENE” as the rownames.</p>
+<p>To work with Seurat, you need to create a Seurat Object. Here, we create a Seurat object from our dataframe. We modify the table <code>raw_counts</code> to have the field <code>GENE</code> as the rownames.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="working-with-seurat.html#cb7-1"></a><span class="kw">rownames</span>(raw_counts) =<span class="st"> </span>raw_counts<span class="op">$</span>GENE</span>
 <span id="cb7-2"><a href="working-with-seurat.html#cb7-2"></a>raw_counts<span class="op">$</span>GENE =<span class="st"> </span><span class="ot">NULL</span></span></code></pre></div>
-<p>While creating the Seurat object, we can perform a first filtering : here we excluded cells that contain less than 200 genes (undersequenced cells or debris) and genes that are expressed in only 2 cells.</p>
+<p>While creating the Seurat object, we can perform a first filtering: we exclude cells that contain less than 200 genes (undersequenced cells or debris) and genes that are expressed in only 2 cells.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="working-with-seurat.html#cb8-1"></a>mydata &lt;-<span class="st"> </span><span class="kw">CreateSeuratObject</span>(raw_counts, <span class="dt">min.cells =</span> <span class="dv">2</span>, <span class="dt">min.features =</span> <span class="dv">200</span>)</span>
 <span id="cb8-2"><a href="working-with-seurat.html#cb8-2"></a>mydata</span></code></pre></div>
 <pre><code>## An object of class Seurat 
 ## 12511 features across 1579 samples within 1 assay 
 ## Active assay: RNA (12511 features)</code></pre>
 <p><strong>Alternative:</strong>
-if you have a directory produced by CellRanger, you create your Seurat object with the function <em>read10X</em>. This function takes as argument the name of the folder containing the output of CellRanger (matrix.mtx, genes.tsv, barcodes.tsv).</p>
+if you have a directory produced by CellRanger, you create your Seurat object with the function <code>read10X</code>. This function takes as argument the name of the folder containing the output of CellRanger (matrix.mtx, genes.tsv, barcodes.tsv).</p>
 </div>
 <div id="explore-the-seurat-data-structure" class="section level2">
 <h2><span class="header-section-number">1.3</span> Explore the Seurat data structure</h2>
-<p>A Seurat object is not the easiest structure to work with, but with a but of practice you will learn to appreciate its potentiality.</p>
-<p>In Seurat, data are organised in different compartements (slots), which contains them-selves several compartements, which can them-selves contain sub compartments…</p>
+<p>A Seurat object is not the easiest structure to work with, but with a bit of practice you will learn to appreciate its potentiality.</p>
+<p>In Seurat, data are organised in different compartements (slots), which contain themselves several compartements, which can also contain sub-compartments, etc.</p>
 <p>Each compartment can be used to store:</p>
 <ul>
-<li>data from multiple modalities, such as RNAseq, spatial transcriptomics, ATAC-seq… For our session today, we will only focus on scRNAseq data (slot “assays”, sub-slot “RNA”)</li>
-<li>general results regarding your data, e.g. the total number of UMI expressed (slot meta.data)<br />
-</li>
-<li>resultst of analyses: PCA components or clustering results)</li>
+<li>data from multiple modalities, such as RNAseq, spatial transcriptomics, ATAC-seq… For our session today, we will only focus on scRNAseq data (slot <code>assays</code>, sub-slot <code>RNA</code>)</li>
+<li>general results regarding your data, e.g. the total number of UMI expressed (slot <code>meta.data</code>)</li>
+<li>results of analyses: PCA components or clustering results</li>
 </ul>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="working-with-seurat.html#cb10-1"></a><span class="kw">slotNames</span>(mydata)</span></code></pre></div>
 <pre><code>##  [1] &quot;assays&quot;       &quot;meta.data&quot;    &quot;active.assay&quot; &quot;active.ident&quot; &quot;graphs&quot;      
 ##  [6] &quot;neighbors&quot;    &quot;reductions&quot;   &quot;project.name&quot; &quot;misc&quot;         &quot;version&quot;     
 ## [11] &quot;commands&quot;     &quot;tools&quot;</code></pre>
-<p>You navigate through this hierachie using ‘@’ and ‘$’ signs.</p>
+<p>You navigate through this hierarchy using <code>@</code> and <code>$</code> signs.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="working-with-seurat.html#cb12-1"></a><span class="kw">slotNames</span>(mydata<span class="op">@</span>assays<span class="op">$</span>RNA)</span></code></pre></div>
 <pre><code>## [1] &quot;counts&quot;        &quot;data&quot;          &quot;scale.data&quot;    &quot;key&quot;          
 ## [5] &quot;var.features&quot;  &quot;meta.features&quot; &quot;misc&quot;</code></pre>
 <p>In the slots associated RNA, you can store:</p>
 <ul>
-<li><em>counts</em> : raw UMI (the data we imported)</li>
-<li><em>data</em> : filtered/normalized counting matrix</li>
-<li><em>scale.data</em> : normalize and scaled data (usually for PCA analyses)</li>
-<li><em>var.features</em>: contains a list of genes genes that contribute strongly to cell-to-cell variation (see section on highly variable genes)</li>
+<li><code>counts</code> : raw UMI (the data we imported)</li>
+<li><code>data</code> : filtered/normalized counting matrix</li>
+<li><code>scale.data</code> : normalized and scaled data (usually for PCA analyses)</li>
+<li><code>var.features</code>: contains a list of genes genes that contribute strongly to cell-to-cell variation (see section <a href="identify-cell-populations.html#hvg">3.1</a> on highly variable genes).</li>
 </ul>
-<p>You can access the data directly with the function GetAssayData function.</p>
+<p>You can access the data directly with the <code>GetAssayData</code> function.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="working-with-seurat.html#cb14-1"></a><span class="co"># mydata@assays$RNA@counts[1:3,1:5]</span></span>
 <span id="cb14-2"><a href="working-with-seurat.html#cb14-2"></a><span class="kw">GetAssayData</span>(mydata, <span class="dt">slot=</span><span class="st">&quot;counts&quot;</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</span></code></pre></div>
 <pre><code>## 3 x 5 sparse Matrix of class &quot;dgCMatrix&quot;
@@ -242,7 +238,7 @@ if you have a directory produced by CellRanger, you create your Seurat object wi
 ## 128up                    .            1            1            2            4
 ## 14-3-3epsilon          426          371          438          380          358
 ## 14-3-3zeta              64           54           58           58           35</code></pre>
-<p>In Seurat, data are stored as “dgCMatrix”, which is an efficient way o store an array with a lot of zero in a computer (sparse matrix).</p>
+<p>In Seurat, data are stored as “dgCMatrix”, which is an efficient way to store an array with a lot of zeros in a computer (sparse matrix).</p>
 </div>
 </div>
             </section>
@@ -267,8 +263,8 @@ if you have a directory produced by CellRanger, you create your Seurat object wi
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
-"github": false,
-"facebook": true,
+"github": true,
+"facebook": false,
 "twitter": true,
 "linkedin": false,
 "weibo": false,
@@ -281,10 +277,7 @@ gitbook.start({
 "family": "sans",
 "size": 2
 },
-"edit": {
-"link": null,
-"text": null
-},
+"edit": null,
 "history": {
 "link": null,
 "text": null
@@ -295,12 +288,33 @@ gitbook.start({
 },
 "download": null,
 "toc": {
-"collapse": "subsection"
-}
+"collapse": null,
+"scroll_highlight": true
+},
+"toc_depth": 5,
+"toolbar": {
+"position": "fixed"
+},
+"search": true,
+"info": true
 });
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

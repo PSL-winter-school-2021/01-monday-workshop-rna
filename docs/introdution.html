@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Report title</title>
-  <meta name="description" content="Report title" />
+  <title>Basic single-cell RNA-seq processing</title>
+  <meta name="description" content="Basic single-cell RNA-seq processing" />
   <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Report title" />
+  <meta property="og:title" content="Basic single-cell RNA-seq processing" />
   <meta property="og:type" content="book" />
   
   
@@ -16,12 +16,12 @@
   <meta name="github-repo" content="git@github.com:PSL-winter-school-2021/01-monday-workshop-rna.git" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Report title" />
+  <meta name="twitter:title" content="Basic single-cell RNA-seq processing" />
   
   
   
 
-<meta name="author" content="Lorette Noiret, Nathalie Lehmann, Eric Van Leen" />
+<meta name="author" content="Lorette Noiret, Nathalie Lehmann, Eric van Leen" />
 
 
 <meta name="date" content="2021-02-05" />
@@ -129,34 +129,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="" data-path="introdution.html"><a href="introdution.html"><i class="fa fa-check"></i>Introdution</a><ul>
-<li class="chapter" data-level="" data-path="introdution.html"><a href="introdution.html#sources-of-inspiration"><i class="fa fa-check"></i>Sources of inspiration</a></li>
-<li class="chapter" data-level="" data-path="introdution.html"><a href="introdution.html#bibliography"><i class="fa fa-check"></i>Bibliography</a></li>
-</ul></li>
+<li class="chapter" data-level="" data-path="introdution.html"><a href="introdution.html"><i class="fa fa-check"></i>Introdution</a></li>
 <li class="chapter" data-level="1" data-path="working-with-seurat.html"><a href="working-with-seurat.html"><i class="fa fa-check"></i><b>1</b> Working with Seurat</a><ul>
 <li class="chapter" data-level="1.1" data-path="working-with-seurat.html"><a href="working-with-seurat.html#load-the-library"><i class="fa fa-check"></i><b>1.1</b> Load the library</a></li>
 <li class="chapter" data-level="1.2" data-path="working-with-seurat.html"><a href="working-with-seurat.html#import-the-data"><i class="fa fa-check"></i><b>1.2</b> Import the data</a></li>
 <li class="chapter" data-level="1.3" data-path="working-with-seurat.html"><a href="working-with-seurat.html#explore-the-seurat-data-structure"><i class="fa fa-check"></i><b>1.3</b> Explore the Seurat data structure</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="basic-single-cell-pipeline.html"><a href="basic-single-cell-pipeline.html"><i class="fa fa-check"></i><b>2</b> Basic single cell pipeline</a><ul>
-<li class="chapter" data-level="2.1" data-path="basic-single-cell-pipeline.html"><a href="basic-single-cell-pipeline.html#remove-low-quality-cells"><i class="fa fa-check"></i><b>2.1</b> Remove “low quality cells”</a><ul>
+<li class="chapter" data-level="2.1" data-path="basic-single-cell-pipeline.html"><a href="basic-single-cell-pipeline.html#remove-low-quality-cells"><i class="fa fa-check"></i><b>2.1</b> Remove “low quality” cells</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="basic-single-cell-pipeline.html"><a href="basic-single-cell-pipeline.html#number-of-genes-detected-per-cell"><i class="fa fa-check"></i><b>2.1.1</b> Number of genes detected per cell</a></li>
 <li class="chapter" data-level="2.1.2" data-path="basic-single-cell-pipeline.html"><a href="basic-single-cell-pipeline.html#number-of-umis-per-cell"><i class="fa fa-check"></i><b>2.1.2</b> Number of UMIs per cell</a></li>
 <li class="chapter" data-level="2.1.3" data-path="basic-single-cell-pipeline.html"><a href="basic-single-cell-pipeline.html#percentage-of-mitochondrial-genes"><i class="fa fa-check"></i><b>2.1.3</b> Percentage of mitochondrial genes</a></li>
-<li class="chapter" data-level="2.1.4" data-path="basic-single-cell-pipeline.html"><a href="basic-single-cell-pipeline.html#group-exercice-on-filtering"><i class="fa fa-check"></i><b>2.1.4</b> Group exercice on filtering</a></li>
+<li class="chapter" data-level="2.1.4" data-path="basic-single-cell-pipeline.html"><a href="basic-single-cell-pipeline.html#group-exercise-on-filtering"><i class="fa fa-check"></i><b>2.1.4</b> Group exercise on filtering</a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="basic-single-cell-pipeline.html"><a href="basic-single-cell-pipeline.html#normalize-the-expression-in-cells"><i class="fa fa-check"></i><b>2.2</b> Normalize the expression in cells</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html"><i class="fa fa-check"></i><b>3</b> Identify cell populations</a><ul>
-<li class="chapter" data-level="3.1" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#select-highly-variables-hvg"><i class="fa fa-check"></i><b>3.1</b> Select highly variables (hvg)</a></li>
-<li class="chapter" data-level="3.2" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#dimension-reduction"><i class="fa fa-check"></i><b>3.2</b> Dimension Reduction</a><ul>
+<li class="chapter" data-level="3.1" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#hvg"><i class="fa fa-check"></i><b>3.1</b> Select highly variables (hvg)</a></li>
+<li class="chapter" data-level="3.2" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#dimension-reduction"><i class="fa fa-check"></i><b>3.2</b> Dimension reduction</a><ul>
 <li class="chapter" data-level="3.2.1" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#scaling"><i class="fa fa-check"></i><b>3.2.1</b> Scaling</a></li>
 <li class="chapter" data-level="3.2.2" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#pca"><i class="fa fa-check"></i><b>3.2.2</b> PCA</a></li>
 <li class="chapter" data-level="3.2.3" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#cluster-cells"><i class="fa fa-check"></i><b>3.2.3</b> Cluster cells</a></li>
-<li class="chapter" data-level="3.2.4" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#group-exercice"><i class="fa fa-check"></i><b>3.2.4</b> Group exercice</a></li>
+<li class="chapter" data-level="3.2.4" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#group-exercise"><i class="fa fa-check"></i><b>3.2.4</b> Group exercise</a></li>
+<li class="chapter" data-level="3.2.5" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#understand-your-clusters"><i class="fa fa-check"></i><b>3.2.5</b> Understand your clusters</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="chapter" data-level="4" data-path="session-info.html"><a href="session-info.html"><i class="fa fa-check"></i><b>4</b> Session info</a></li>
 </ul>
 
@@ -167,7 +164,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Report title</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Basic single-cell RNA-seq processing</a>
           </h1>
         </div>
 
@@ -176,8 +173,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="header">
-<h1 class="title">Report title</h1>
-<p class="author"><em>Lorette Noiret, Nathalie Lehmann, Eric Van Leen</em></p>
+<h1 class="title">Basic single-cell RNA-seq processing</h1>
+<p class="author"><em>Lorette Noiret, Nathalie Lehmann, Eric van Leen</em></p>
 <p class="date"><em>2021-02-05</em></p>
 </div>
 <div id="introdution" class="section level1 unnumbered">
@@ -187,18 +184,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>how to clean single cells data and extract high quality cells</li>
 <li>identify sub-populations of cells</li>
 </ul>
-<p>We will be using the R packages Seurat and apply it functionalities to subset of the data publilshied with Karaiskos et al (replicate3).</p>
-<div id="sources-of-inspiration" class="section level2 unnumbered">
-<h2>Sources of inspiration</h2>
+<p>We will be using the R package <a href="https://satijalab.org/seurat/articles/get_started.html">Seurat</a> and apply it functionalities to subset the data published in <span class="citation">(Karaiskos et al. <a href="#ref-Karaiskos2017" role="doc-biblioref">2017</a>)</span> (replicate n°3).</p>
+<p><strong>Sources of inspiration</strong></p>
 <p>This course material is largely inspired by two great sources that we advise you to read/use in details:</p>
 <ul>
 <li><a href="https://cloud.biologie.ens.fr/index.php/s/RXkNGwtR1MLf5mo">sincellTE 2020</a> : MA Dillies, A. Rausell, M Deloger, N. Servant, M. Thomas-Chollier, A. Paquet, cours6_TP_EDA_Normalization_2020.html</li>
 <li><a href="https://satijalab.org/seurat/archive/v3.2/pbmc3k_tutorial.html">Vignette Seurat</a></li>
 </ul>
 </div>
-<div id="bibliography" class="section level2 unnumbered">
-<h2>Bibliography</h2>
-<p><span id="bibli">Karaiskos et al.</span>The Drosophila embryo at single-cell transcriptome resolution. Science13 Oct 2017 : 194-199</p>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Karaiskos2017">
+<p>Karaiskos, Nikos, Philipp Wahle, Jonathan Alles, Anastasiya Boltengagen, Salah Ayoub, Claudia Kipar, Christine Kocks, Nikolaus Rajewsky, and Robert P. Zinzen. 2017. “TheDrosophilaembryo at Single-Cell Transcriptome Resolution.” <em>Science</em> 358 (6360): 194–99. <a href="https://doi.org/10.1126/science.aan3235">https://doi.org/10.1126/science.aan3235</a>.</p>
 </div>
 </div>
             </section>
@@ -223,8 +220,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
-"github": false,
-"facebook": true,
+"github": true,
+"facebook": false,
 "twitter": true,
 "linkedin": false,
 "weibo": false,
@@ -237,10 +234,7 @@ gitbook.start({
 "family": "sans",
 "size": 2
 },
-"edit": {
-"link": null,
-"text": null
-},
+"edit": null,
 "history": {
 "link": null,
 "text": null
@@ -251,12 +245,33 @@ gitbook.start({
 },
 "download": null,
 "toc": {
-"collapse": "subsection"
-}
+"collapse": null,
+"scroll_highlight": true
+},
+"toc_depth": 5,
+"toolbar": {
+"position": "fixed"
+},
+"search": true,
+"info": true
 });
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

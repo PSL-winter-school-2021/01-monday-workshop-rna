@@ -2,9 +2,37 @@
 title: "Basic single-cell RNA-seq processing"
 author: "Lorette Noiret, Nathalie Lehmann, Eric van Leen"
 date: "`r Sys.Date()`"
-output: bookdown::gitbook
+output:
+ bookdown::gitbook:
+  css: "data/notebook/css/custom.css"
+  toc_depth: 5
+  config:
+   toc:
+    collapse: yes
+    scroll_highlight: yes
+    before: null
+    after: null
+   toolbar:
+    position: fixed
+   edit : null
+   download: null
+   search: yes
+   fontsettings:
+    theme: white
+    family: sans
+    size: 2
+   sharing:
+    facebook: no
+    github: yes
+    twitter: yes
+    linkedin: no
+    weibo: no
+    instapaper: no
+    vk: no
+    all: ['twitter', 'linkedin']
+   info: yes
 documentclass: book
-bibliography: []
+bibliography: references.bib
 biblio-style: apalike
 link-citations: yes
 github-repo: "git@github.com:PSL-winter-school-2021/01-monday-workshop-rna.git"

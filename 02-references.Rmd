@@ -1,4 +1,0 @@
-`r if (knitr:::is_html_output()) '
-# References {-}
-{#Karaiskos} Karaiskos et al, Science 358, 194–199 (2017). The Drosophila embryo at single-cell transcriptome resolution.
-'`
