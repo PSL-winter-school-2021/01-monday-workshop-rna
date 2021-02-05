@@ -33,7 +33,11 @@ If you want to modify the notebook, you need to:
 
 To run the notebook and create the corresponding html files, you have two options:
 
-* In **RStudio**, click the "knit" button
-* In **terminal**, run the script `./_build.sh`
+* In **RStudio**, click the `knit` button
+* In **terminal**, run the script `build.sh` with the command:
+
+```{bash}
+bash _build.sh
+```
 
 The output will be stored in the `docs` folder.

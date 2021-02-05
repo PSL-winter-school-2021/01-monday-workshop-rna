@@ -12,5 +12,5 @@ then
 fi
 
 git add --all *
-git commit -m ${commitMessage} || true
+git commit -m "${commitMessage}" || true
 git push origin master
