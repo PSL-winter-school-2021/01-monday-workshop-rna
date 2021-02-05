@@ -151,8 +151,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#select-highly-variables-hvg"><i class="fa fa-check"></i><b>3.1</b> Select highly variables (hvg)</a></li>
 <li class="chapter" data-level="3.2" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#dimension-reduction"><i class="fa fa-check"></i><b>3.2</b> Dimension Reduction</a><ul>
 <li class="chapter" data-level="3.2.1" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#scaling"><i class="fa fa-check"></i><b>3.2.1</b> Scaling</a></li>
+<li class="chapter" data-level="3.2.2" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#pca"><i class="fa fa-check"></i><b>3.2.2</b> PCA</a></li>
+<li class="chapter" data-level="3.2.3" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#cluster-cells"><i class="fa fa-check"></i><b>3.2.3</b> Cluster cells</a></li>
+<li class="chapter" data-level="3.2.4" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#group-exercice"><i class="fa fa-check"></i><b>3.2.4</b> Group exercice</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="identify-cell-populations.html"><a href="identify-cell-populations.html#cluster-cells"><i class="fa fa-check"></i><b>3.3</b> Cluster cells</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="chapter" data-level="4" data-path="session-info.html"><a href="session-info.html"><i class="fa fa-check"></i><b>4</b> Session info</a></li>
@@ -177,90 +179,93 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number"> 2</span> Basic single cell pipeline</h1>
 <p>The steps below encompass the standard pre-processing workflow for scRNA-seq data.</p>
 <ul>
-<li>Filter out low quality cells : undersequenced cells, debris (broken cells or floating pieces of RNA) and multiplets (several cells in one droplets)</li>
-<li>Normalize the expression to reduce the sequencing biais.</li>
+<li>Filter out <em>low quality</em> cells: undersequenced cells, debris (broken cells or floating pieces of RNA) and multiplets (several cells in one droplets)</li>
+<li>Normalize the UMI expression to reduce the sequencing biais (some cells are less sequenced than others).</li>
 </ul>
 <div id="remove-low-quality-cells" class="section level2">
 <h2><span class="header-section-number">2.1</span> Remove “low quality cells”</h2>
 <p>The are a few metrics commonly used to filter out low quality cells :</p>
 <ul>
-<li>the number of unique genes detected in each cell :
+<li>the number of unique genes detected in each cell
 <ul>
 <li>cells with low gene count : helps to remove empty droplets, debris and undersequenced cells.</li>
 <li>cells with high gene count : these cells are more likely to be cell doublets or multiplets. The number of multiplets expected in your sample is directly correlated with the number of cells you loaded in 10X. The more cells you loaded, the higher the chance is to have 2 or more cells in one droplet.</li>
 </ul></li>
-<li>total number of UMI detected within a cell</li>
-<li>the percentage of reads that map to the mitochondrial genome : low-quality / dying cells often exhibit extensive mitochondrial contamination</li>
+<li>the total number of UMI detected within a cell
+<ul>
+<li>the total number of UMI and the number of genes are highly correlated. Looking at the scatter plot between these two variables helps you detect atypical cells.</li>
+</ul></li>
+<li>the percentage of reads that map to the mitochondrial genome
+<ul>
+<li>low-quality / dying cells often exhibit extensive mitochondrial contamination</li>
+</ul></li>
 </ul>
-<p>Seurat allows you to easily explore QC (quality control) metrics and filter cells based on any user-defined criteria using the slot ‘meta.data’.</p>
+<p>Seurat allows you to easily explore these QC (quality control) metrics and filter out cells.</p>
 <div id="number-of-genes-detected-per-cell" class="section level3">
 <h3><span class="header-section-number">2.1.1</span> Number of genes detected per cell</h3>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="basic-single-cell-pipeline.html#cb17-1"></a><span class="kw">barplot</span>(<span class="kw">sort</span>(mydata<span class="op">$</span>nFeature_RNA), <span class="dt">main=</span><span class="st">&quot;Number of genes detected/Cell&quot;</span>, <span class="dt">names.arg =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="basic-single-cell-pipeline.html#cb16-1"></a><span class="kw">barplot</span>(<span class="kw">sort</span>(mydata<span class="op">$</span>nFeature_RNA), <span class="dt">main=</span><span class="st">&quot;Number of genes detected / cell&quot;</span>, <span class="dt">names.arg =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
 <p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="basic-single-cell-pipeline.html#cb18-1"></a><span class="kw">quantile</span>(mydata<span class="op">$</span>nFeature_RNA)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="basic-single-cell-pipeline.html#cb17-1"></a><span class="kw">quantile</span>(mydata<span class="op">$</span>nFeature_RNA)</span></code></pre></div>
 <pre><code>##     0%    25%    50%    75%   100% 
-##  235.0  705.5 1312.0 2593.5 6322.0</code></pre>
+##  235.0  705.0 1308.0 2588.5 6298.0</code></pre>
 </div>
 <div id="number-of-umis-per-cell" class="section level3">
 <h3><span class="header-section-number">2.1.2</span> Number of UMIs per cell</h3>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="basic-single-cell-pipeline.html#cb20-1"></a><span class="kw">barplot</span>(<span class="kw">sort</span>(mydata<span class="op">$</span>nCount_RNA), <span class="dt">main=</span><span class="st">&quot;Number of UMI/Cell&quot;</span>,<span class="dt">names.arg =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="basic-single-cell-pipeline.html#cb19-1"></a><span class="kw">barplot</span>(<span class="kw">sort</span>(mydata<span class="op">$</span>nCount_RNA), <span class="dt">main=</span><span class="st">&quot;Number of UMI/Cell&quot;</span>,<span class="dt">names.arg =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
 <p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="basic-single-cell-pipeline.html#cb21-1"></a><span class="kw">VlnPlot</span>(mydata, <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;nFeature_RNA&quot;</span>, <span class="st">&quot;nCount_RNA&quot;</span>), <span class="dt">ncol =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="basic-single-cell-pipeline.html#cb20-1"></a><span class="kw">VlnPlot</span>(mydata, <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;nFeature_RNA&quot;</span>, <span class="st">&quot;nCount_RNA&quot;</span>), <span class="dt">ncol =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-9-2.png" width="672" /></p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="basic-single-cell-pipeline.html#cb22-1"></a><span class="kw">FeatureScatter</span>(mydata, <span class="dt">feature1 =</span> <span class="st">&quot;nCount_RNA&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;nFeature_RNA&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="basic-single-cell-pipeline.html#cb21-1"></a><span class="kw">FeatureScatter</span>(mydata, <span class="dt">feature1 =</span> <span class="st">&quot;nCount_RNA&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;nFeature_RNA&quot;</span>)</span></code></pre></div>
 <p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-9-3.png" width="672" /></p>
-<p>You aim while looking at these graphs is to define thresholds/cutoff that you will aply to filter cell out. Try to identify the cells that behave differently from the main population.</p>
+<p>Your aim while looking at these graphs is to define thresholds/cutoff that you will apply to filter cells out. To do so, try to identify the cells that behave differently from the main population.</p>
 </div>
 <div id="percentage-of-mitochondrial-genes" class="section level3">
 <h3><span class="header-section-number">2.1.3</span> Percentage of mitochondrial genes</h3>
 <p>To calculate the perentage of mitochonrial genes expressed in a cell, you must first provide a list of mitochondrial genes. In the paper, the authors did not provide their list. As a quick replacement, we will consider that mitochondrial genes are all the genes that starts with the pattern ‘mt:’. For a more refine analysis, you can use flybase or another source and carefully identify mitochondrial genes.</p>
 <p>We then use the PercentageFeatureSet function, which calculates the percentage of counts originating from a set of features.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="basic-single-cell-pipeline.html#cb23-1"></a>mydata[[<span class="st">&quot;percent.mt&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">PercentageFeatureSet</span>(mydata, <span class="dt">pattern =</span> <span class="st">&quot;^mt:&quot;</span>)</span>
-<span id="cb23-2"><a href="basic-single-cell-pipeline.html#cb23-2"></a></span>
-<span id="cb23-3"><a href="basic-single-cell-pipeline.html#cb23-3"></a><span class="co"># Alternative : if you have a list of mitochondrial genes</span></span>
-<span id="cb23-4"><a href="basic-single-cell-pipeline.html#cb23-4"></a><span class="co">#list = c(&quot;mTerf3&quot;,&quot;Mtpalpha&quot; ,&quot;mTTF&quot;)</span></span>
-<span id="cb23-5"><a href="basic-single-cell-pipeline.html#cb23-5"></a><span class="co">#mydata[[&quot;percent.mt2&quot;]] &lt;- PercentageFeatureSet(mydata, features=list_mito )</span></span></code></pre></div>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="basic-single-cell-pipeline.html#cb24-1"></a><span class="kw">VlnPlot</span>(mydata, <span class="dt">features =</span> <span class="st">&quot;percent.mt&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="basic-single-cell-pipeline.html#cb22-1"></a>mydata[[<span class="st">&quot;percent.mt&quot;</span>]] &lt;-<span class="st"> </span><span class="kw">PercentageFeatureSet</span>(mydata, <span class="dt">pattern =</span> <span class="st">&quot;^mt:&quot;</span>)</span>
+<span id="cb22-2"><a href="basic-single-cell-pipeline.html#cb22-2"></a></span>
+<span id="cb22-3"><a href="basic-single-cell-pipeline.html#cb22-3"></a><span class="co"># Alternative : if you have a list of mitochondrial genes</span></span>
+<span id="cb22-4"><a href="basic-single-cell-pipeline.html#cb22-4"></a><span class="co">#list = c(&quot;mTerf3&quot;,&quot;Mtpalpha&quot; ,&quot;mTTF&quot;)</span></span>
+<span id="cb22-5"><a href="basic-single-cell-pipeline.html#cb22-5"></a><span class="co">#mydata[[&quot;percent.mt2&quot;]] &lt;- PercentageFeatureSet(mydata, features=list_mito )</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="basic-single-cell-pipeline.html#cb23-1"></a><span class="kw">VlnPlot</span>(mydata, <span class="dt">features =</span> <span class="st">&quot;percent.mt&quot;</span>)</span></code></pre></div>
 <p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="basic-single-cell-pipeline.html#cb25-1"></a><span class="kw">FeatureScatter</span>(mydata, <span class="dt">feature1 =</span> <span class="st">&quot;nCount_RNA&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;percent.mt&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="basic-single-cell-pipeline.html#cb24-1"></a><span class="kw">FeatureScatter</span>(mydata, <span class="dt">feature1 =</span> <span class="st">&quot;nCount_RNA&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;percent.mt&quot;</span>)</span></code></pre></div>
 <p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-11-2.png" width="672" /></p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="basic-single-cell-pipeline.html#cb26-1"></a><span class="kw">FeatureScatter</span>(mydata, <span class="dt">feature1 =</span> <span class="st">&quot;nFeature_RNA&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;percent.mt&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="basic-single-cell-pipeline.html#cb25-1"></a><span class="kw">FeatureScatter</span>(mydata, <span class="dt">feature1 =</span> <span class="st">&quot;nFeature_RNA&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;percent.mt&quot;</span>)</span></code></pre></div>
 <p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-11-3.png" width="672" /></p>
 </div>
 <div id="group-exercice-on-filtering" class="section level3">
 <h3><span class="header-section-number">2.1.4</span> Group exercice on filtering</h3>
 <p>On of the most difficult parts of single cells pre-processing is to decide the threshold to define low and high quality cells.
-From the various graphs, decide the levels for low high quality cells dependant on the number of genes expressed per cell, the total UMIs per cell and the percentage of mitochonrial genes.</p>
-<p>Discuss as a group.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="basic-single-cell-pipeline.html#cb27-1"></a><span class="co"># DEFINE THE CUTOFF VALUES AND VISUALIZE THE RESULTS</span></span>
-<span id="cb27-2"><a href="basic-single-cell-pipeline.html#cb27-2"></a>minGene    =<span class="st"> </span><span class="dv">500</span></span>
-<span id="cb27-3"><a href="basic-single-cell-pipeline.html#cb27-3"></a>maxGene    =<span class="st"> </span><span class="dv">5800</span></span>
-<span id="cb27-4"><a href="basic-single-cell-pipeline.html#cb27-4"></a>minUMI     =<span class="st"> </span><span class="dv">12500</span></span>
-<span id="cb27-5"><a href="basic-single-cell-pipeline.html#cb27-5"></a>maxUMI     =<span class="st"> </span><span class="dv">60000</span></span>
-<span id="cb27-6"><a href="basic-single-cell-pipeline.html#cb27-6"></a>maxpct_mt  =<span class="st"> </span><span class="dv">18</span>  </span>
-<span id="cb27-7"><a href="basic-single-cell-pipeline.html#cb27-7"></a></span>
-<span id="cb27-8"><a href="basic-single-cell-pipeline.html#cb27-8"></a><span class="co"># the function &quot;subset&quot; helps you to filter the cells</span></span>
-<span id="cb27-9"><a href="basic-single-cell-pipeline.html#cb27-9"></a><span class="co"># we create a new seurat object containing the filtred cells</span></span>
-<span id="cb27-10"><a href="basic-single-cell-pipeline.html#cb27-10"></a>mydata_filtrd &lt;-<span class="st"> </span><span class="kw">subset</span>(mydata, <span class="dt">subset =</span> nFeature_RNA <span class="op">&gt;</span><span class="st"> </span>minGene <span class="op">&amp;</span><span class="st"> </span>nFeature_RNA <span class="op">&lt;</span><span class="st"> </span>maxGene <span class="op">&amp;</span><span class="st"> </span>nCount_RNA <span class="op">&gt;</span><span class="st"> </span>minUMI  <span class="op">&amp;</span><span class="st"> </span>nCount_RNA <span class="op">&lt;</span><span class="st"> </span>maxUMI <span class="op">&amp;</span><span class="st"> </span>percent.mt <span class="op">&lt;</span><span class="st"> </span>maxpct_mt)</span>
-<span id="cb27-11"><a href="basic-single-cell-pipeline.html#cb27-11"></a></span>
-<span id="cb27-12"><a href="basic-single-cell-pipeline.html#cb27-12"></a><span class="kw">VlnPlot</span>(mydata_filtrd, <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;nFeature_RNA&quot;</span>, <span class="st">&quot;nCount_RNA&quot;</span>, <span class="st">&quot;percent.mt&quot;</span>), <span class="dt">ncol =</span> <span class="dv">3</span>)</span></code></pre></div>
-<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+From the various graphs above, decide the levels for low high quality cells dependant on the number of genes expressed per cell, the total UMIs per cell and the percentage of mitochonrial genes.</p>
+<p>Discuss your cutoff as a group.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="basic-single-cell-pipeline.html#cb26-1"></a><span class="co"># DEFINE THE CUTOFF VALUES FOR EACH VARIABLE AND VISUALIZE THE RESULTS</span></span>
+<span id="cb26-2"><a href="basic-single-cell-pipeline.html#cb26-2"></a>minGene    =<span class="st"> </span></span>
+<span id="cb26-3"><a href="basic-single-cell-pipeline.html#cb26-3"></a>maxGene    =<span class="st"> </span></span>
+<span id="cb26-4"><a href="basic-single-cell-pipeline.html#cb26-4"></a>minUMI     =<span class="st"> </span></span>
+<span id="cb26-5"><a href="basic-single-cell-pipeline.html#cb26-5"></a>maxUMI     =<span class="st"> </span></span>
+<span id="cb26-6"><a href="basic-single-cell-pipeline.html#cb26-6"></a>maxpct_mt  =<span class="st"> </span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="basic-single-cell-pipeline.html#cb27-1"></a><span class="co"># the function &quot;subset&quot; helps you to filter the cells</span></span>
+<span id="cb27-2"><a href="basic-single-cell-pipeline.html#cb27-2"></a><span class="co"># we create a new seurat object containing the filtred cells</span></span>
+<span id="cb27-3"><a href="basic-single-cell-pipeline.html#cb27-3"></a>mydata_filtrd &lt;-<span class="st"> </span><span class="kw">subset</span>(mydata, <span class="dt">subset =</span> nFeature_RNA <span class="op">&gt;</span><span class="st"> </span>minGene <span class="op">&amp;</span><span class="st"> </span>nFeature_RNA <span class="op">&lt;</span><span class="st"> </span>maxGene <span class="op">&amp;</span><span class="st"> </span>nCount_RNA <span class="op">&gt;</span><span class="st"> </span>minUMI  <span class="op">&amp;</span><span class="st"> </span>nCount_RNA <span class="op">&lt;</span><span class="st"> </span>maxUMI <span class="op">&amp;</span><span class="st"> </span>percent.mt <span class="op">&lt;</span><span class="st"> </span>maxpct_mt)</span>
+<span id="cb27-4"><a href="basic-single-cell-pipeline.html#cb27-4"></a></span>
+<span id="cb27-5"><a href="basic-single-cell-pipeline.html#cb27-5"></a></span>
+<span id="cb27-6"><a href="basic-single-cell-pipeline.html#cb27-6"></a><span class="kw">VlnPlot</span>(mydata_filtrd, <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;nFeature_RNA&quot;</span>, <span class="st">&quot;nCount_RNA&quot;</span>, <span class="st">&quot;percent.mt&quot;</span>), <span class="dt">ncol =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="basic-single-cell-pipeline.html#cb28-1"></a><span class="kw">FeatureScatter</span>(mydata_filtrd, <span class="dt">feature1 =</span> <span class="st">&quot;nCount_RNA&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;percent.mt&quot;</span>)</span></code></pre></div>
-<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-12-2.png" width="672" /></p>
+<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-14-2.png" width="672" /></p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="basic-single-cell-pipeline.html#cb29-1"></a><span class="kw">FeatureScatter</span>(mydata_filtrd, <span class="dt">feature1 =</span> <span class="st">&quot;nCount_RNA&quot;</span>, <span class="dt">feature2 =</span> <span class="st">&quot;nFeature_RNA&quot;</span>)</span></code></pre></div>
-<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-12-3.png" width="672" /></p>
+<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-14-3.png" width="672" /></p>
 </div>
 </div>
 <div id="normalize-the-expression-in-cells" class="section level2">
 <h2><span class="header-section-number">2.2</span> Normalize the expression in cells</h2>
-<p>After removing unwanted cells from the dataset, the next step is to normalize the data.
-The objective is to correct for the sequencing bias.</p>
-<p>As we noticed in the previous graphes, the cells do not have the same number of total UMI. This may be due biological differences (some cells express less RNA than other) but is likely to be the result of cell-specific sequencint biais (some cells have been less sequenced than other).</p>
-<p>We are going to apply a global scaling method, which supposes that all cells are about the same RNA content. It aims to remove cell-specific systematic biases by scaling expression measures within each cell by a constant factor.
-We use a “LogNormalize” method that normalizes the feature expression measurements for each cell by the total expression, multiplies this by a scale factor (here the median total UMI per cell), and log-transforms the result.</p>
+<p>As we noticed in the previous graphes, the cells do not have the same number of total UMI. This may be due biological differences (some cells express less RNA than other) but is likely to be the result of cell-specific sequencing biais (some cells have been less sequenced than other). The normalization step aims to correct for this bias.</p>
+<p>We are going to apply a <em>global scaling method</em>, which supposes that all cells have about the same RNA content. The “LogNormalize” method that normalizes the expression measurements for each cell by the total expression, multiplies this by a scale factor (here the median total UMI per cell), and log-transforms the result.</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="basic-single-cell-pipeline.html#cb30-1"></a>mydata_filtrd &lt;-<span class="st"> </span><span class="kw">NormalizeData</span>(mydata_filtrd, <span class="dt">normalization.method =</span> <span class="st">&quot;LogNormalize&quot;</span>, <span class="dt">scale.factor =</span> <span class="kw">median</span>(mydata_filtrd<span class="op">$</span>nCount_RNA))</span></code></pre></div>
 <p>The resulting data are stored in the ‘data’ slot</p>
-<p>Once you have pre-processed your data, you are ready for further analyses : identify sub-population of cells, pseudo-time analyses…</p>
+<p>Once you have pre-processed your data, you are ready for further analyses (e.g. identify sub-population of cells, pseudo-time analyses).</p>
 </div>
 </div>
             </section>

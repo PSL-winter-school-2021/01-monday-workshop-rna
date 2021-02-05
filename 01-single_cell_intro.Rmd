@@ -152,14 +152,26 @@ From the various graphs above, decide the levels for low high quality cells depe
 Discuss your cutoff as a group.
 
 
-```{r}
+```{r, eval=FALSE, echo=TRUE}
 # DEFINE THE CUTOFF VALUES FOR EACH VARIABLE AND VISUALIZE THE RESULTS
 minGene    = 
 maxGene    = 
 minUMI     = 
 maxUMI     = 
 maxpct_mt  = 
+```
 
+```{r, eval=TRUE, echo=FALSE}
+# PRESET VARIABLES
+minGene    = 500
+maxGene    = 5800
+minUMI     = 12500
+maxUMI     = 60000
+maxpct_mt  = 18
+```
+
+
+```{r}
 # the function "subset" helps you to filter the cells
 # we create a new seurat object containing the filtred cells
 mydata_filtrd <- subset(mydata, subset = nFeature_RNA > minGene & nFeature_RNA < maxGene & nCount_RNA > minUMI  & nCount_RNA < maxUMI & percent.mt < maxpct_mt)
