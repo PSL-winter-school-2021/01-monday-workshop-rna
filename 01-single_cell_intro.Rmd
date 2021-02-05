@@ -275,4 +275,6 @@ You can also check in some genes of interest are specifically expressed in some 
 VlnPlot(mydata_filtrd, features = c("Mes2", "sna"))
 ```
 
+### Group exercice 
+Try to play with the number of PC and the clustering parameters. How coyld you decide which set of parameters is the best ? 
 
