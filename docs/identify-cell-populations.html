@@ -258,16 +258,16 @@ Even though, the gene selection step reduces the data considerably, there is a f
 ## Positive:  SNCF, zen, zen2, Ama, C15 
 ## Negative:  dm, Bsg, Tet, spoon, Dl</code></pre>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="identify-cell-populations.html#cb38-1"></a><span class="kw">VizDimLoadings</span>(mydata_filtrd, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>)</span></code></pre></div>
-<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="identify-cell-populations.html#cb39-1"></a><span class="co"># Plot expression of gene driving principal component </span></span>
 <span id="cb39-2"><a href="identify-cell-populations.html#cb39-2"></a><span class="kw">DimHeatmap</span>(mydata_filtrd, <span class="dt">dims =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)</span></code></pre></div>
-<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-16-2.png" width="672" /></p>
+<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-17-2.png" width="672" /></p>
 <p>After PCA, you need to decide how many components you want to keep (for UMAP and/or clustering). Seurat proposes a statistical methods with the function JackStraw. Alternatively you can plot the explained variance using the ElbowPlot. In practical case, around 30-50 principal components.</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="identify-cell-populations.html#cb40-1"></a><span class="kw">library</span>(ggplot2)</span>
 <span id="cb40-2"><a href="identify-cell-populations.html#cb40-2"></a><span class="kw">DimPlot</span>(mydata_filtrd, <span class="dt">reduction =</span> <span class="st">&quot;pca&quot;</span>)</span></code></pre></div>
-<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="identify-cell-populations.html#cb41-1"></a><span class="kw">ElbowPlot</span>(mydata_filtrd)</span></code></pre></div>
-<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-17-2.png" width="672" /></p>
+<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-18-2.png" width="672" /></p>
 </div>
 </div>
 <div id="cluster-cells" class="section level2">
@@ -298,22 +298,22 @@ Even though, the gene selection step reduces the data considerably, there is a f
 <pre><code>## Warning: The default method for RunUMAP has changed from calling Python UMAP via reticulate to the R-native UWOT using the cosine metric
 ## To use Python UMAP via reticulate, set umap.method to &#39;umap-learn&#39; and metric to &#39;correlation&#39;
 ## This message will be shown once per session</code></pre>
-<pre><code>## 00:05:03 UMAP embedding parameters a = 0.9922 b = 1.112</code></pre>
-<pre><code>## 00:05:03 Read 399 rows and found 20 numeric columns</code></pre>
-<pre><code>## 00:05:03 Using Annoy for neighbor search, n_neighbors = 30</code></pre>
-<pre><code>## 00:05:03 Building Annoy index with metric = cosine, n_trees = 50</code></pre>
+<pre><code>## 11:02:16 UMAP embedding parameters a = 0.9922 b = 1.112</code></pre>
+<pre><code>## 11:02:16 Read 399 rows and found 20 numeric columns</code></pre>
+<pre><code>## 11:02:16 Using Annoy for neighbor search, n_neighbors = 30</code></pre>
+<pre><code>## 11:02:16 Building Annoy index with metric = cosine, n_trees = 50</code></pre>
 <pre><code>## 0%   10   20   30   40   50   60   70   80   90   100%</code></pre>
 <pre><code>## [----|----|----|----|----|----|----|----|----|----|</code></pre>
 <pre><code>## **************************************************|
-## 00:05:03 Writing NN index file to temp file /tmp/RtmprDQPdk/file1a8ad32098f2c8
-## 00:05:03 Searching Annoy index using 1 thread, search_k = 3000
-## 00:05:03 Annoy recall = 100%
-## 00:05:03 Commencing smooth kNN distance calibration using 1 thread
-## 00:05:04 Initializing from normalized Laplacian + noise
-## 00:05:04 Commencing optimization for 500 epochs, with 14528 positive edges
-## 00:05:05 Optimization finished</code></pre>
+## 11:02:16 Writing NN index file to temp file /tmp/RtmpdfFeKt/file1aadee7ecde75b
+## 11:02:16 Searching Annoy index using 1 thread, search_k = 3000
+## 11:02:16 Annoy recall = 100%
+## 11:02:17 Commencing smooth kNN distance calibration using 1 thread
+## 11:02:17 Initializing from normalized Laplacian + noise
+## 11:02:17 Commencing optimization for 500 epochs, with 14528 positive edges
+## 11:02:19 Optimization finished</code></pre>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="identify-cell-populations.html#cb56-1"></a><span class="kw">DimPlot</span>(mydata_filtrd, <span class="dt">reduction =</span> <span class="st">&quot;umap&quot;</span>)</span></code></pre></div>
-<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 ### Cluster identity
 One clustering is done, your biological work starts. You need to annotate the clusters. One way is to look at genes that are differentially expressed… but we won’t have the time to go in details</p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="identify-cell-populations.html#cb57-1"></a><span class="co"># find all markers of cluster 1</span></span>
@@ -326,7 +326,7 @@ One clustering is done, your biological work starts. You need to annotate the cl
 ## sna  2.168411e-53  1.824705 0.937 0.181 3.691503e-49
 ## Mes2 4.547330e-52  1.632343 1.000 0.283 7.741375e-48</code></pre>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="identify-cell-populations.html#cb59-1"></a><span class="kw">VlnPlot</span>(mydata_filtrd, <span class="dt">features =</span> <span class="kw">c</span>(<span class="st">&quot;Mes2&quot;</span>, <span class="st">&quot;sna&quot;</span>))</span></code></pre></div>
-<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p><img src="01-monday-workshop-rna_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 
 </div>
 </div>
