@@ -8,6 +8,7 @@ then
 	echo "Example command:"
 	echo "   m=\"Your commit message\""
 	echo "   bash _deploy.sh \$m"
+	echo
 	exit
 fi
 
