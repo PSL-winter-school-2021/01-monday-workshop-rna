@@ -1,5 +1,6 @@
 ---
 title: "Basic single-cell RNA-seq processing"
+pagetitle: "Basic single-cell RNA-seq processing"
 author: "Lorette Noiret, Nathalie Lehmann, Eric van Leen"
 date: "`r Sys.Date()`"
 output:
