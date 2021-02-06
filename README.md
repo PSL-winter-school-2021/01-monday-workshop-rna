@@ -4,6 +4,9 @@ This GitHub repository contains the files for the single-cell RNA-sequencing dat
 
 Started on 2021-02-04.
 
+
+The workshop website is available here: https://psl-winter-school-2021.github.io/01-monday-workshop-rna/introdution.html
+
 ## Directory structure
 
 * **root**
