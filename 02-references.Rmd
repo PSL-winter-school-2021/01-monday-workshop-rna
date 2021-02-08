@@ -13,6 +13,7 @@ Here is a short bibliography if you'd like to go further:
 * {#Wolf2019}
 * {#Villani2017}
 * {#Satija2015}
+* {#Stegle2015}
 
 ## Online ressources
 
