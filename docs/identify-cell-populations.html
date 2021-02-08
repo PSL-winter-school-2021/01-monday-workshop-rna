@@ -323,20 +323,20 @@ This step gives equal weight to all genes while performing the dimension reducti
 <pre><code>## Warning: The default method for RunUMAP has changed from calling Python UMAP via reticulate to the R-native UWOT using the cosine metric
 ## To use Python UMAP via reticulate, set umap.method to &#39;umap-learn&#39; and metric to &#39;correlation&#39;
 ## This message will be shown once per session</code></pre>
-<pre><code>## 01:34:33 UMAP embedding parameters a = 0.9922 b = 1.112</code></pre>
-<pre><code>## 01:34:33 Read 399 rows and found 30 numeric columns</code></pre>
-<pre><code>## 01:34:33 Using Annoy for neighbor search, n_neighbors = 30</code></pre>
-<pre><code>## 01:34:33 Building Annoy index with metric = cosine, n_trees = 50</code></pre>
+<pre><code>## 01:44:16 UMAP embedding parameters a = 0.9922 b = 1.112</code></pre>
+<pre><code>## 01:44:16 Read 399 rows and found 30 numeric columns</code></pre>
+<pre><code>## 01:44:16 Using Annoy for neighbor search, n_neighbors = 30</code></pre>
+<pre><code>## 01:44:16 Building Annoy index with metric = cosine, n_trees = 50</code></pre>
 <pre><code>## 0%   10   20   30   40   50   60   70   80   90   100%</code></pre>
 <pre><code>## [----|----|----|----|----|----|----|----|----|----|</code></pre>
 <pre><code>## **************************************************|
-## 01:34:33 Writing NN index file to temp file /tmp/RtmpTMim7r/file1cbae65c027ef3
-## 01:34:33 Searching Annoy index using 1 thread, search_k = 3000
-## 01:34:33 Annoy recall = 100%
-## 01:34:33 Commencing smooth kNN distance calibration using 1 thread
-## 01:34:34 Initializing from normalized Laplacian + noise
-## 01:34:34 Commencing optimization for 500 epochs, with 14684 positive edges
-## 01:34:35 Optimization finished</code></pre>
+## 01:44:16 Writing NN index file to temp file /tmp/RtmpZPRGzl/file1cbdf53be796ad
+## 01:44:16 Searching Annoy index using 1 thread, search_k = 3000
+## 01:44:16 Annoy recall = 100%
+## 01:44:17 Commencing smooth kNN distance calibration using 1 thread
+## 01:44:17 Initializing from normalized Laplacian + noise
+## 01:44:18 Commencing optimization for 500 epochs, with 14684 positive edges
+## 01:44:19 Optimization finished</code></pre>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="identify-cell-populations.html#cb56-1"></a><span class="kw">DimPlot</span>(mydata_filtrd, <span class="dt">reduction =</span> <span class="st">&quot;umap&quot;</span>)</span></code></pre></div>
 <p><img src="01-monday-workshop-rna_files/figure-html/umap-1.png" width="672" /></p>
 </div>

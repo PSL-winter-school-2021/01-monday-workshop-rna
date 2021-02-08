@@ -4,16 +4,16 @@
 
 Here is a short bibliography if you'd like to go further:
 
-* {#Cao2020}
-* {#Litviukov2020}
-* {#Amezquita2019}
-* {#Delile2019}
-* {#PijuanSala2019}
-* {#Saelens2019}
-* {#Wolf2019}
-* {#Villani2017}
-* {#Satija2015}
-* {#Stegle2015}
+* [@Cao2020]
+* [@Litviukov2020]
+* [@Amezquita2019]
+* [@Delile2019]
+* [@PijuanSala2019]
+* [@Saelens2019]
+* [@Wolf2019]
+* [@Villani2017]
+* [@Satija2015]
+* [@Stegle2015]
 
 ## Online ressources
 
