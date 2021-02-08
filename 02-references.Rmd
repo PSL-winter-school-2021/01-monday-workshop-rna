@@ -1,0 +1,24 @@
+# References
+
+## Bibliography
+
+Here is a short bibliography if you'd like to go further:
+
+* {#Cao2020}
+* {#Litviukov2020}
+* {#Amezquita2019}
+* {#Delile2019}
+* {#PijuanSala2019}
+* {#Saelens2019}
+* {#Wolf2019}
+* {#Villani2017}
+* {#Satija2015}
+
+## Online ressources
+
+* A website which gathers most of single-cell tools on [github](https://github.com/seandavi/awesome-single-cell).
+* A single-cell [database](https://panglaodb.se/)
+* A collection of single-cell [datasets](https://bioinfo.uth.edu/scrnaseqdb/)
+* A collection of single-cell [tools](https://www.scrna-tools.org/)
+
+
